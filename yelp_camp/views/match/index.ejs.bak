@@ -1,0 +1,115 @@
+ <% include ../partials/header %>
+ 
+    <div class="container centered">
+        <h2>Checkbook and Credit Card Reconciliation</h2>
+    </div>
+<script>
+/*  
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    ev.target.appendChild(document.getElementById(data));
+}
+*/
+</script>
+    </header>
+   
+ <div class="container wideContainer">
+    <div class="row panel panel-default" style="display:flex; flex-wrap: wrap;">
+        <div class="col-md-6 col-xs-6 panel-body">
+            <div id="register">
+                <h3>Register</h3>
+                <table id="myTable" class="table table-fixedheader table-bordered">
+                    <thead>
+                        <tr>
+                            <th width="18%" id="tbldate">Date</th>
+                            <th width="35%">Description</th>
+                            <th width="32%">Account</th>
+                            <th width="15%" class="rt_aligned">Amount</th>
+                        </tr>
+                    </thead>
+                
+                    <tbody style="height: 400px"> <!--</tbody>  style="height: 400px">-->
+                        <% register.forEach(function(register) {  %> 
+                            <% var date = register.dateDue.toString();%>
+                              <tr id="draggable" class="ui-draggable ui-widget-content">
+                                <td width="18%"><%=date.substr(4, 3) + " " + date.substr(8, 2) + " " + date.substr(11, 4)%></td>
+                                <td width="35%"><%=register.description%></td>
+                                <td width="32%"><%=register.accountName%></td>
+                                <% if (register.typeTransaction === "debit") { %>
+                                    <td width="15%" class="rt_aligned"><%=(register.amount * (-1)).toFixed(2)%></td>
+                                        <% } else { %>
+                                        <td width="15%" class="rt_aligned"><%=register.amount.toFixed(2)%></td>
+                                        <% } %>
+                                %>
+                            </tr>
+                         <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6 col-sx-6 panel-body">
+            <div id="transactions">
+                <h3>Transactions</h3>
+                <!--<table class="table table-bordered table-condensed table-hover">-->
+                <table id="myTable" class="table table-fixedheader table-bordered ">
+                <thead>
+                    <tr  id= class="droppable"> <!--ondrop="drop(event)" ondragover="allowDrop(event)">-->
+                        <th width="18%" id="tbldate">Date</th>
+                        <th width="32%">Description</th>
+                        <th width="26%">Account</th>
+                        <th width="12%">Amount</th>
+                        <th width="12%">Recon</th>
+                    </tr>
+                </thead>
+                <tbody style="height: 400px"> <!--style="height: 400px">-->
+                    <% transaction.forEach(function(transaction) {  %>
+                        <% var date = transaction.date.toString();%>
+                        <tr id="droppable" class="ui-widget-content"> <!--class="ondrop="drop(event)" ondragover="allowDrop(event)"--> 
+                            <td width="18%"><%=date.substr(4, 3) + " " + date.substr(8, 2) + " " + date.substr(11, 4)%></td>
+                            <td width="32%"><%=transaction.description%></td>
+                            <td width="26%"><%=transaction.account_name%></td>
+                            <% if (transaction.transaction_type === "debit") { %>
+                                <td width="12%" class="rt_aligned"><%=(transaction.amount * (-1)).toFixed(2)%></td>
+                                    <% } else { %>
+                                    <td width="12%" class="rt_aligned"><%=transaction.amount.toFixed(2)%></td>
+                                    <% } %>
+                            %>
+                           <td width="12%"> <a href="/match/<%=transaction._id%>/edit"><%=transaction.reconciled%></a></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>        
+</div>
+    
+<script>
+    //$(document).ready(function () {   //helper: "clone",
+        $("#draggable").draggable({
+            helper: "clone",
+            cursor: "move"
+            //containment: "ui-widget-content"
+            });
+        
+        $("#droppable").droppable({
+            drop: function () {
+                tolerance: 'fit',
+                accept: ".one",
+                    drop: function(){
+                        id = $(this).attr("id");
+                         alert (id);
+                    }    
+                }
+        });
+    //});
+</script>
+    

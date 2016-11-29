@@ -1,0 +1,46 @@
+.thumbnail img {
+    width: 100%;
+}
+
+.thumbnail {
+    padding: 0;
+}
+
+.thumbnail .caption-full {
+    padding: 9px;
+}
+
+.li_margin {
+    margin-right: 50px;
+} 
+
+.li_margin_long {
+    margin-right: 100px;
+} 
+#deleteForm {
+    display: inline;
+    padding-left: 5px;
+}
+
+table {
+    width: 75%;
+}
+.centered {
+    text-align: center;
+}
+/*.table-condensed>tbody>tr>td {
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+} 
+.table-condensed {
+	padding: 0;
+}*/
+.rt_aligned {
+    text-align: right;
+}
+.login {
+    width:20%; 
+    margin: 40px auto;
+}

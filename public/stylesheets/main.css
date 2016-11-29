@@ -1,0 +1,349 @@
+h1 {
+   text-align: center;
+}
+
+h2 {
+   text-align: center;
+}
+
+h5 {
+   margin-bottom: 0; 
+   margin-top: 5px;
+   color: #376803;
+}
+h3 {
+   text-align: center;
+   background: #e2f9ca;
+   margin-top: 0;
+   margin-bottom: 0;
+   border: 1px solid #D0D0D0 ;
+}
+
+h4    {
+   margin-bottom: 5px;
+}
+
+.hidden {
+   display: none;
+}
+
+#dateFrom {
+   height: 50px;
+}
+#dateTo {
+   height: 50px;
+}
+
+#draggable, droppable {
+   color: black;
+}
+
+.regTable {
+   height: 100%;
+}
+
+.table-hover > tbody > tr:hover {
+  background-color: #D2D2D2;
+}
+
+.form-horizontal .form-group {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+#balances {
+   width: 70%;
+}
+
+#transactions {
+   width: 100%;
+}
+#register {
+   width: 100%;
+}
+.header1 {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    margin-bottom: 0;
+    margin-top: 3px;
+ }
+ 
+ .col-centered{
+    float: none;
+    margin: 0 auto;
+}
+ 
+.form-group {
+    margin-bottom: 5px;
+    margin-top: 20px;
+    /*height: 50px;*/
+    width: 100%;
+}
+.btn-block {
+   width: 50%;
+   margin-top: 10px;
+}
+
+.radio-inline{
+    font-weight: 500;
+    padding-top: 0;
+}
+
+/*label {
+   display: inline;
+    font-weight: 500;
+}*/
+.table {
+    margin-bottom: 10px; 
+}
+input {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    width: 100%;
+}
+label {
+   width: 100%;
+}
+
+.thumbnail img {
+    width: 100%;
+}
+
+.thumbnail {
+    padding: 0;
+}
+
+.thumbnail .caption-full {
+    padding: 9px;
+}
+.paddingRight-10>nav>li>a {
+    padding-right: 25px;
+}
+.li_margin {
+    margin-right: 50px;
+} 
+
+.li_margin_long {
+    margin-right: 100px;
+} 
+#deleteForm {
+    display: inline;
+    padding-left: 5px;
+    padding: 0 0 2px 0; 
+}
+
+.form-control {
+    height: 30px;
+    font-size: 100%;
+}
+table {
+    width: 75%;
+}
+.centered {
+    text-align: center;
+}
+.topMargin {
+    margin-top: 100px;
+}
+
+body {
+    background:#c3f291;
+}
+.floatRight {
+    float: right;
+    margin-top: 5px;
+}
+
+.navbar-default {
+    background: #376803;
+}
+.navbar-default .navbar-brand {
+    color: white;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: white;
+}
+/*hover tbody tr:hover td, .table-hover tbody tr:hover th {
+    background: #000000;
+}
+*/
+.table {
+    background: #e2f9ca;
+}
+
+.panel {
+   background: #C3F291;
+   border: none;
+}
+
+.btn-xs {
+   padding: 0 5px;
+}
+
+.table-color {
+    background-color: #fdfffc;
+}
+.table-condensed>tbody>tr>td {
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}/* 
+.table-condensed {
+	padding: 0;
+}*/
+.rt_aligned {
+    text-align: right;
+}
+.login {
+    width:20%; 
+    margin: 40px auto;
+}
+.marginBottom-0 {margin-bottom:0;}
+
+.dropdown-submenu {
+    position: relative;
+}
+/*
+.navbar-default {
+    background: #31B573;
+}
+*/
+.dropdown-submenu>.dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -6px;
+    margin-left: -1px;
+    -webkit-border-radius: 0 6px 6px 6px;
+    -moz-border-radius: 0 6px 6px;
+    border-radius: 0 6px 6px 6px;
+}
+.nav > li > a {
+    padding:15px 25px 5px 15px;
+}
+
+.dropdown-submenu:hover>.dropdown-menu {
+    display: block;
+}
+
+.dropdown-submenu>a:after {
+    display: block;
+    content: " ";
+    float: right;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 5px 0 5px 5px;
+    border-left-color: #ccc;
+    margin-top: 5px;
+    margin-right: -10px;
+}
+
+.dropdown-submenu:hover>a:after {
+    border-left-color: #fff;
+}
+
+.dropdown-submenu.pull-left {
+    float: none;
+}
+@media (min-width: 767px) {
+    .caret-right {
+        width: 0; 
+        height: 0; 
+        border-top: 4px solid rgba(0, 0, 0, 0);
+        border-bottom: 4px solid rgba(0, 0, 0, 0);
+        border-left: 4px solid #777777;
+    }
+}
+
+/*
+Force table width to 100%
+*/
+ table.table-fixedheader {
+    width: 100%;   
+}
+/*
+Set table elements to block mode.  (Normally they are inline).
+This allows a responsive table, such as one where columns can be stacked
+if the display is narrow.
+*/
+ table.table-fixedheader, table.table-fixedheader>thead, table.table-fixedheader>tbody, table.table-fixedheader>thead>tr, table.table-fixedheader>tbody>tr, table.table-fixedheader>thead>tr>th, table.table-fixedheader>tbody>td {
+    display: block;
+}
+table.table-fixedheader>thead>tr:after, table.table-fixedheader>tbody>tr:after {
+    content:' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+/*
+When scrolling the table, actually it is only the tbody portion of the
+table that scrolls (not the entire table: we want the thead to remain
+fixed).  We must specify an explicit height for the tbody.  We include
+100px as a default, but it can be overridden elsewhere.
+
+Also, we force the scrollbar to always be displayed so that the usable
+width for the table contents doesn't change (such as becoming narrower
+when a scrollbar is visible and wider when it is not).
+*/
+ table.table-fixedheader>tbody {
+    overflow-y: scroll;
+    height: 100px;
+    
+}
+/*
+We really don't want to scroll the thead contents, but we want to force
+a scrollbar to be displayed anyway so that the usable width of the thead
+will exactly match the tbody.
+*/
+ table.table-fixedheader>thead {
+    overflow-y: scroll;    
+}
+/*
+For browsers that support it (webkit), we set the background color of
+the unneeded scrollbar in the thead to make it invisible.  (Setting
+visiblity: hidden defeats the purpose, as this alters the usable width
+of the thead.)
+*/
+ table.table-fixedheader>thead::-webkit-scrollbar {
+    background-color: inherit;
+}
+
+
+table.table-fixedheader>thead>tr>th:after, table.table-fixedheader>tbody>tr>td:after {
+    content:' ';
+    display: table-cell;
+    visibility: hidden;
+    clear: both;
+}
+
+/*
+We want to set <th> and <td> elements to float left.
+We also must explicitly set the width for each column (both for the <th>
+and the <td>).  We set to 20% here a default placeholder, but it can be
+overridden elsewhere.
+*/
+
+ table.table-fixedheader>thead tr th, table.table-fixedheader>tbody tr td {
+    float: left;    
+    word-wrap:break-word;     
+}
+.panel-body {
+    padding: 0;
+}
+
+.wideContainer {
+    margin-right: 10px;
+    margin-left: 10px;
+    width: 99%;
+    }
+
+.narrowBtn>btn-block {
+    width: 25%;
+}
+
+

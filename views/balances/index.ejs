@@ -1,0 +1,44 @@
+<% include ../partials/header %>
+ 
+    <div class="container centered" id="balances">
+        <% console.log("report is - " + report); %>
+        
+        <% if (report === "bank") { %>   
+            <h2>Checkbook and Credit Card Balances</h2>    
+        <% } else { %>
+            <% if (report === "invest") { %>
+                <h2>Investment Account Balances</h2>
+                <% } else { %>
+                    <h2>All Account Balances</h2>
+                <% } %>
+            <% } %>
+        <h3>Browse balances</h3>
+    </div>
+    </header>
+   
+  <div class="container" id="balances">
+        
+    <table class="table table-bordered table-condensed table-hover">
+        <thead>
+            <tr>
+                <th>Financial Inst</th>
+                <th>Account</th>
+                <th>Account Number</th>
+                <th class="rt_aligned">Current Balance</th>
+             </tr>
+        </thead>
+        <tbody>
+            <% balances.forEach(function(balances) {  %>
+                <tr>
+                    <td><%=balances.fiName%></td>
+                    <td><%=balances.accountName%></td>
+                    <td><%=balances.accountId%></td>
+                    <td class="rt_aligned"><%=balances.currentBalance.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
+                    <!--<td> <a class="btn btn-warning btn-xs" href="/balances/<%=balances._id%>/edit">Edit Balances</a></td>-->
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+  </div>
+ 
+ <% include ../partials/footer %>

@@ -1,0 +1,86 @@
+ <% include ../partials/header %>
+ 
+    <div class="container centered">
+        <h2>Checkbook and Credit Card Register Items</h2>
+        <h3>Browse register items</h3>
+    </div>
+    </header>
+   
+ <div class="container">
+ 
+ 
+    <div class="row" style="display:flex; flex-wrap: wrap;">
+          <div class="col-md-3 col-sm-6">
+                <table class="table table-bordered table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <!--<th id="tbldate">Register Date</th>-->
+                        <th>Description</th>
+                        <th>Account</th>
+                        <th>Frequency</th>
+                        <th class="rt_aligned">Amount</th>
+                        <th class="rt_aligned">Actual Amount</th>
+                    </tr>
+                </thead>
+                <!--
+                <tbody>
+                    <% registers.forEach(function(register) {  %> -->
+                        <tr>
+                            <!--<td><%=register.dateDue%></td>
+                            <td><%=register.description%></td>
+                            <td><%=register.account_name%></td>
+                            <td><%=register.frequency%></td>
+                            <td class="rt_aligned"><%=(register.planAmount)%></td>
+                            <td class="rt_aligned"><%=(register.chargedAmount)%></td>
+
+                            <td> <a class="btn btn-warning btn-xs" href="/register/<%=register._id%>/edit">Edit Register</a></td>-->
+                                                                              <td>02/28/2016</td>
+                            <td>Ace Hardware</td>
+                            <td>Marriott Chase Card</td>
+                            <td>Daily</td>
+                            <td class="rt_aligned">27.12</td>
+                            <td class="rt_aligned">43.81</td>
+                        </tr>
+                    <!--<% }); %>-->
+                </tbody> -->
+            </table>
+        </div>
+         <div class="col-md-3 col-sm-6">
+                <table class="table table-bordered table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <!--<th id="tbldate">Register Date</th>-->
+                        <th>Description</th>
+                        <th>Account</th>
+                        <th>Frequency</th>
+                        <th class="rt_aligned">Amount</th>
+                        <th class="rt_aligned">Actual Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+ <!--                   <% registers.forEach(function(register) {  %>
+                        <tr>
+                            <td><%=register.dateDue%></td>
+                            <td><%=register.description%></td>
+                            <td><%=register.account_name%></td>
+                            <td><%=register.frequency%></td>
+                            <td class="rt_aligned"><%=(register.planAmount)%></td>
+                            <td class="rt_aligned"><%=(register.chargedAmount)%></td>
+
+                            <td> <a class="btn btn-warning btn-xs" href="/register/<%=register._id%>/edit">Edit Register</a></td>
+                        </tr>-->
+                        <tr>
+                            <td>02/28/2016</td>
+                            <td>Ace Hardware</td>
+                            <td>Marriott Chase Card</td>
+                            <td>Daily</td>
+                            <td class="rt_aligned">27.12</td>
+                            <td class="rt_aligned">43.81</td>
+                        </tr>
+                    <!--<% }); %> -->
+                    
+                </tbody>
+            </table>
+        </div>        
+    </div>
+</div>

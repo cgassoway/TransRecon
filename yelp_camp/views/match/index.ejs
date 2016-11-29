@@ -1,0 +1,146 @@
+ <% include ../partials/header %>
+ 
+ 
+<style>
+  #feedback { font-size: 1.4em; }
+  #selectable .ui-selecting { background: #FECA40; }
+  #selectable .ui-selected { background: #F39814; color: white; }
+  /*<!--#selectable { list-style-type: none; margin: 0; padding: 0; width: 1000%; }
+  #selectable li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: 18px; }-->*/
+</style>
+<script>
+    src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"
+</script>
+<script>
+   
+    var result = $( "#result" ).empty();
+    var regId = [];
+  
+    $(function() {
+        $( "#selectable" ).selectable({
+            selected: function() {
+
+                $( ".ui-selected", this ).each(function() {
+                    regId = $(this).closest("tr").find('td:eq(4)').text();
+                    console.log("id is " + regId);
+                    result.append( regId );
+                    console.log("select length is " + result.length);
+                });
+            }
+        });
+    });
+    
+    $(document).ready(function(){
+        $("#recon").click(function(){
+            var href = "";
+            console.log("length is " + result.length)
+            if (result.length > 0) {
+                alert("no selected items" + result) ;
+                href = "/match/" + <%=transaction._id%> + "/edit/" + result;
+            } else {
+                //alert(result.length + "selected items" + result);
+                href = "/match/" + <%=transaction._id%> + "/edit";
+            }
+            console.log("href is " + href)
+            window.location=href;
+        });
+    });
+    
+</script>
+   
+
+<div class="container centered">
+    <h2>Checkbook and Credit Card Reconciliation</h2>
+</div>
+
+</header>
+   
+ <div class="container wideContainer">
+    <div class="row panel panel-default" style="display:flex; flex-wrap: wrap;">
+        <div class="col-md-6 col-xs-6 panel-body">
+            <div id="register">
+                <h3>Register</h3>
+                <table id="myTable" class="table table-fixedheader table-condensed table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th width="18%" id="tbldate">Date</th>
+                            <th width="32%">Description</th>
+                            <th width="26%">Account</th>
+                            <th width="12%" class="rt_aligned">Amount</th>
+                        </tr>
+                    </thead>
+                
+                    <!--<tbody id="selectable" class="ui-widget-content" style="height: 400px">--><tbody style="height: 400px">
+                        <% register.forEach(function(register) {  %> 
+                            <% var date = register.date.toString();%>
+                              <tr >
+                                <td width="18%"><%=date.substr(4, 3) + " " + date.substr(8, 2) + " " + date.substr(11, 4)%></td>
+                                <td width="32%"><%=register.description%></td>
+                                <td width="26%"><%=register.accountName%></td>
+                                <td width="12%" class="rt_aligned"><%=register.amount.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
+                                <td width="12%" ><a class="btn btn-warning btn-xs pull-right" href="/TransRecon/register/<%=register._id%>/edit">Edit?</a></td>
+                                <td class="hidden"> <%= register._id%></td>
+                            </tr>
+                         <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6 col-sx-6 panel-body">
+            <div id="transactions">
+                <h3>Transactions</h3>
+                <!--<table class="table table-bordered table-condensed table-hover">-->
+                <table id="myTable" class="table table-fixedheader table-condensed table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th width="18%" id="tbldate">Date</th>
+                        <th width="32%">Description</th>
+                        <th width="26%">Account</th>
+                        <th width="12%">Amount</th>
+                        <th width="12%">Recon</th>
+                    </tr>
+                </thead>
+                <tbody style="height: 400px"> <!--style="height: 400px">-->
+                    <% transaction.forEach(function(transaction) {  %>
+                        <% var date = transaction.date.toString();%>
+                        <tr> 
+                            <td width="18%"><%=date.substr(4, 3) + " " + date.substr(8, 2) + " " + date.substr(11, 4)%></td>
+                            <td width="32%"><%=transaction.description%></td>
+                            <td width="26%"><%=transaction.accountName%></td>
+                            <td width="12%" class="rt_aligned"><%=transaction.amount.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
+                            <!--<% if (transaction.transaction_type === "debit") { %>
+                                <td width="12%" class="rt_aligned"><%=(transaction.amount * (-1)).toFixed(2)%></td>
+                                    <% } else { %>
+                                    <td width="12%" class="rt_aligned"><%=transaction.amount.toFixed(2)%></td>
+                                    <% } %>-->
+                            <td width="12%" > <a class="btn btn-warning btn-xs pull-right" id="recon" href="/TransRecon/match/<%=transaction._id%>/edit"><%=transaction.reconciled.status%></a></td>
+                            <!--<td width="12%" > <button id="recon" class="btn btn-default"><%=transaction.reconciled%></button></td>-->
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>        
+</div>
+ <!--   
+<script>
+    //$(document).ready(function () {   //helper: "clone",
+        $("#draggable").draggable({
+            helper: "clone",
+            cursor: "move"
+            //containment: "ui-widget-content"
+            });
+        
+        $("#droppable").droppable({
+            drop: function () {
+                tolerance: 'fit',
+                accept: ".one",
+                    drop: function(){
+                        id = $(this).attr("id");
+                         alert (id);
+                    }    
+                }
+        });
+    //});
+</script> -->
+    

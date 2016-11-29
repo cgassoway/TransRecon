@@ -1,0 +1,45 @@
+<% include ../partials/header %>
+ 
+<!--div class="container centered" id="transactions">
+        <h2>Checkbook and Credit Card Transactions</h2>
+        <h3>Browse transactions</h3>
+    </div>
+    </header>-->
+   
+ 
+    <div class="container" id="transactions">
+        <div class="panel panel-default">
+            <div class="panel  col-md-10 col-xs-10 col-md-offset-1 col-xs-offset-1">
+            <!--<div class="panel-body">-->
+                <h2>Checkbook and Credit Card Transactions</h2>
+                <h3>Browse transactions</h3>
+                <table id="myTable" class="table table-fixedheader table-bordered table-condensed table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th width="10%" id="tbldate">Date</th>
+                            <th width="25%">Description</th>
+                            <th width="25%">Account Name</th>
+                            <th width="20%">Institution</th>
+                            <th width="10%" class="rt_aligned">Amount</th>
+                            <th width="10%">Reconciled</th>
+                            <!--<th width="10%">Action</th>-->
+                        </tr>
+                    </thead>
+                    <tbody style="height:380px">
+                        <% transactions.forEach(function(transaction) {  %>
+                        <% var date = transaction.date.toString();%>
+                        <tr>
+                            <td width="10%" ><%=date.substr(4, 3) + " " + date.substr(8, 2) + " " + date.substr(11, 4)%></td>
+                            <td width="25%" ><%=transaction.description%></td>
+                            <td width="25%" ><%=transaction.accountName%></td>
+                            <td width="20%" ><%=transaction.institution%></td>
+                            <td width="10%" class="rt_aligned"><%=transaction.amount.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
+                            <td width="10%" ><%=transaction.reconciled.status%></td>
+                            <!--<td width="10%" > <a class="btn btn-xs btn-warning" href="/transactions/<%=transaction._id%>/edit">Edit Transaction</a></td>-->
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+  </div>
+ 
+ <% include ../partials/footer %>

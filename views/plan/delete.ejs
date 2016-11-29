@@ -1,0 +1,45 @@
+<%  include ../partials/header  %>
+<div class="container">
+    <div class="row">
+        <!--<div class="panel-body col-md-10 col-xs-10 col-md-offset-1 col-xs-offset-1">-->
+        <div class="col-md-8 col-xs-8 col-md-offset-2 col-xs-offset-2">
+        <h2 style="text-align: center;">Delete Plan Item</h2>
+     <!--<table class="table table-bordered table-condensed table-hover">-->
+            <!--<table id="myTable" class="table table-fixedheader table-bordered">-->
+            <table class="table ">
+                <thead>
+                    <tr>
+                        <th width="15%" id="tbldate">Day of Month</th>
+                        <th width="20%" >Description</th>
+                        <th width="20%" >Account</th>
+                        <th width="10%" >Amount</th>
+                        <th width="15%" >Are you sure?</th>
+                    </tr>
+                </thead>
+                <!--<tbody  style="height: 100px">-->
+                <tbody style="height: 50px">
+                        <tr height="15px">
+                            <td width="15%"><%=plan.dayOfMonth%></td>
+                            <td width="20%" ><%=plan.description%></td>
+                            <td width="20%" ><%=plan.accountName%></td>
+                            <td width="10%" class="rt_aligned"><%=plan.amount.toFixed(2)%></td>
+                            <td width="15%">
+                                <form  method="POST" action="/plan/<%=plan._id%>?_method=DELETE">
+                                    <button type="submit" class="btn btn-xs btn-danger">Yes, Delete This Item</button>
+                                </form>
+                            </td>
+                            <% if (plan.memo) { %>
+                                <td><%=plan.memo%></td>
+                            <%}%>
+                            
+                        </tr>
+                 </tbody>
+            </table>
+            <a class="btn btn-lg btn-primary pull-right" href="/TransRecon/plan">No, Go Back</a>      
+        </div>
+     </div>
+</div>
+
+
+
+<%  include ../partials/footer  %>

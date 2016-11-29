@@ -1,0 +1,58 @@
+<% include ../partials/header %>
+<!--
+<div class="container centered" id="register">
+    <h2>Checkbook and Credit Card Register Items</h2>
+    <h3>Browse register items</h3>
+</div>
+</header>-->
+
+<div class="container">
+    <div class="row panel panel-default">
+        <!--<div class="panel-body col-md-10 col-xs-10 col-md-offset-1 col-xs-offset-1">-->
+        <div class="panel-body col-md-10 col-xs-10 col-md-offset-1 col-xs-offset-1">
+        <h2 style="text-align: center;">Browse Register Items</h2>
+     <!--<table class="table table-bordered table-condensed table-hover">-->
+            <table id="myTable" class="table table-fixedheader table-bordered table-condensed table-striped table-hover">
+        
+    <!--<table class="table table-bordered table-condensed table-hover">-->
+<!--<div class="container">
+      
+<table class="table table-bordered table-condensed table-hover">-->
+                <thead>
+                    <tr>
+                        <th width="10%" id="tbldate">Date</th>
+                        <th width="20%" >Description</th>
+                        <th width="20%" >Account</th>
+                        <th width="25%" >Institution</th>
+                        <th width="10%" class="rt_aligned">Amount</th>
+                    </tr>
+                </thead>
+                <tbody  style="height: 400px">
+                    <% registers.forEach(function(register) {  %>
+                    <% var date = register.date.toString();%>
+                        <tr>
+                            <td width="10%"><%=date.substr(4, 3) + " " + date.substr(8, 2) + " " + date.substr(11, 4)%></td>
+                            <td width="20%" ><%=register.description%></td>
+                            <td width="20%" ><%=register.accountName%></td>
+                            <td width="25%" ><%=register.institution%></td>
+                            <td width="10%" class="rt_aligned"><%=register.amount.toFixed(2)%></td>
+                            <td width="7%" > <a class="btn btn-warning btn-xs pull-right" href="/TransRecon/register/<%=register._id%>/edit">Edit</a></td>
+                            <td width="8%"> <a class="btn btn-xs btn-danger pull-right" href="/TransRecon/register/<%=register._id%>/delete">Delete</a></td>
+                            <!--    <form id="deleteForm" class="pull-right" href="/register/<%=register._id%>">
+                                <button class="btn btn-xs btn-danger pull-right" href="/register/<%=register._id%>/delete">Delete</button>
+                                </form>-->
+                            </td>
+                            <% if (register.memo) { %>
+                                <td><%=register.memo%></td>
+                            <%}%>
+                        </tr>
+                    <%});%>
+                </tbody>
+            </table>
+            <a class="btn btn-success btn-md floatRight" href="/TransRecon/register/new">Add register </a>     
+            
+    </div>
+ 
+</div>
+ 
+ <% include ../partials/footer %>
