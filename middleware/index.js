@@ -62,11 +62,11 @@ if (req.isAuthenticated()){
 };
 */
 middlewareObject.isLoggedIn = function(req, res, next) {
-if (req.isAuthenticated()) {
-    return next();
-    }
-    req.flash("error", "Please Login first if you wish to do that...");
-    res.redirect("/TransRecon/login");
+  if (req.isAuthenticated()) {
+      return next();
+      }
+      req.flash("error", "Please Login first if you wish to do that...");
+      res.redirect("/TransRecon/login");
 };
     
 module.exports = middlewareObject;

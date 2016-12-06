@@ -1,8 +1,0 @@
-<% include ./partials/header %>
-
-<h1>Welcome to the Transaction Reconciliation Site</h1>
-
-<h2>Use this site to reconcile your checkbook and credit card transactions</h2>
-
-
-<% include ./partials/footer %>

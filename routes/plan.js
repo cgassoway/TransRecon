@@ -67,6 +67,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
         incr = 0
        }
     var fullDate = new Date(date.getFullYear(), (date.getMonth() + incr), req.body.dayOfMonth)
+    console.log(fullDate)
     var newRegister =   {date: fullDate,
                         description: req.body.description,
                         amount: req.body.amount,
@@ -101,7 +102,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
 
 //SHOW route
 //This is the route to show info on one Plan
-router.get("/:id", middleware.isLoggedIn, function(req, res) {
+/*router.get("/:id", middleware.isLoggedIn, function(req, res) {
     //  find the Plan with the ID provided
     //render the Show Template with that Plan
     Plan.findById(req.params.id).exec(function(err, foundPlan) {
@@ -111,7 +112,7 @@ router.get("/:id", middleware.isLoggedIn, function(req, res) {
             res.render("plan/", {plan: foundPlan});
         }
     });
-});
+});  */
 
  
  //EDIT REGISTER ROUTE
