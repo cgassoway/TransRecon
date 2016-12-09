@@ -2,6 +2,6 @@
 "transPath": "transactions.json",
 "balancePath": "balances.json",
 "database": "mongodb://localhost/fininfo",
-"port": "8081",
+"port": "8082",
 "ipAddress": "192.168.1.50"
 }
