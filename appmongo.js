@@ -111,8 +111,8 @@ fs.readFile(filePathTrans, function (err, data) { // Read the contents of the fi
 
 fs.readFile(filePathJSON, function (err, data) { // Read the contents of the file   
   if (err) throw err
-  if data.length > 5 {
-    var jsonContent = JSON.parse(data)
+  var jsonContent = JSON.parse(data)
+  if (jsonContent) {
     console.log("starting Balances update  - Length - " + data.length  );
     jsonContent.forEach( function(item) {
       if (item.currentBalance != 0){
