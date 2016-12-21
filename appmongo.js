@@ -110,44 +110,46 @@ fs.readFile(filePathTrans, function (err, data) { // Read the contents of the fi
     });
 
 fs.readFile(filePathJSON, function (err, data) { // Read the contents of the file   
-    if (err) throw err
+  if (err) throw err
+  if data.length > 5 {
     var jsonContent = JSON.parse(data)
-    console.log("starting Balances update");
+    console.log("starting Balances update  - Length - " + data.length  );
     jsonContent.forEach( function(item) {
-        if (item.currentBalance != 0){
-            Balance.findOne({accountId: item.accountId}, function(err, updated) {
-            if (err) {
-                console.log("Error updating Balances  " + err);
-                throw err
-                }
-            if (updated != null){
-                updated.currentBalance = item.currentBalance;
-                updated.accountName = item.accountName;
-                updated.fiName = item.fiName;
-                updated.accountType = item.accountType;
-                updated.save();
+      if (item.currentBalance != 0){
+        Balance.findOne({accountId: item.accountId}, function(err, updated) {
+        if (err) {
+          console.log("Error updating Balances  " + err);
+          throw err
+          }
+        if (updated != null){
+          updated.currentBalance = item.currentBalance;
+          updated.accountName = item.accountName;
+          updated.fiName = item.fiName;
+          updated.accountType = item.accountType;
+          updated.save();
+          } else {  
+            if (updated === null) {     
+              balance = Balance({
+                fiName: item.fiName,
+                accountName: item.accountName,
+                accountId: item.accountId,
+                currentBalance: item.currentBalance,
+                accountType: item.accountType
+                });
+              balance.save(function(err) {
+                if (err) {
+                  console.log(err);
+                  throw err;
                 } else {
-                if (updated === null) {     
-                    balance = Balance({
-                        fiName: item.fiName,
-                        accountName: item.accountName,
-                        accountId: item.accountId,
-                        currentBalance: item.currentBalance,
-                        accountType: item.accountType
-                        });
-                    balance.save(function(err) {
-                        if (err) {
-                            console.log(err);
-                            throw err;
-                        } else {
-                             numAdded = numAdded + 1;
-                            };
-                        });                    
-                    };
-                }
-            });
-         };       
-    });
+                  numAdded = numAdded + 1;
+                  };
+                });                    
+              };
+            } 
+          });
+        };       
+      });
+    }
 });
 
 Plan.find().exec(function(err, plans) {
