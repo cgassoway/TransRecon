@@ -36,7 +36,9 @@ fs.readFile(filePathTrans, function (err, data) { // Read the contents of the fi
     console.log("starting Transactions update");
     jsonContent.forEach( function(item) {
         //console.log("date - " + item.date + "ref Date - " + today.getFullYear() + "/" + item.date.substr(0,3) + "/" + item.date.substr(4,2))
-        var refDate = new Date(today.getFullYear(), getTransMonth(item.date.substr(0,3)), item.date.substr(4,2))
+        //var refDate = new Date(today.getFullYear(), getTransMonth(item.date.substr(0,3)), item.date.substr(4,2))
+        var refDate = new Date(item.odate+86400000)
+        //console.log(refDate)
         var accountRef = item.account.replace(/\s/g, '_');
         var finInstRef = item.fi.replace(/\s/g, '_');
         var dolAmount = item.amount * (-1);
