@@ -37,6 +37,10 @@ fs.readFile(filePathTrans, function (err, data) { // Read the contents of the fi
     jsonContent.forEach( function(item) {
         //console.log("date - " + item.date + "ref Date - " + today.getFullYear() + "/" + item.date.substr(0,3) + "/" + item.date.substr(4,2))
         //var refDate = new Date(today.getFullYear(), getTransMonth(item.date.substr(0,3)), item.date.substr(4,2))
+        //
+        //  Use date from the odate entry, but date seems to be one day short
+        //  of transaction date.  Add one day to the date to correct.
+        //
         var refDate = new Date(item.odate+86400000)
         //console.log(refDate)
         var accountRef = item.account.replace(/\s/g, '_');
