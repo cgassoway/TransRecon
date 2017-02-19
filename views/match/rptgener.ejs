@@ -21,7 +21,7 @@
                 <thead>
                     <tr>
                         <th width="15%" id="tbldate">Date</th>
-                        <th width="30%" >Description</th>
+                        <th width="30%" >Merchant</th>
                         <th width="30%" >Account</th>
                         <th width="10%" class="rt_aligned">Amount</th>
                         <th width="15%" >Reconciled?</th>                        
@@ -35,7 +35,7 @@
                     <% total = total + register.amount%>
                         <tr>
                             <td width="15%"><%=date.substr(4, 3) + " " + date.substr(8, 2) + " " + date.substr(11, 4)%></td>
-                            <td width="30%" ><%=register.description%></td>
+                            <td width="30%" ><%=register.merchant%></td>
                             <td width="30%" ><%=register.accountName%></td>
                             <!--<td width="10%" class="rt_aligned"><%=register.amount.toFixed(2)%></td>-->
                             <td width="10%" class="rt_aligned"><%=register.amount.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>                          

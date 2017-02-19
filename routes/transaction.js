@@ -12,9 +12,8 @@ var express     = require("express"),
 
 //INDEX route
 router.get("/",  middleware.isLoggedIn, function(req, res) {
-    Transaction.find({}).sort({date: -1, accountName: 1}).exec(function(err, allTransactions){
-        //Transaction.find({}).sort({description: 1, original_description: 1}).exec(function(err, allTransactions){
-        if (err){
+    Transaction.find({}).sort({date: -1, merchant: 1, accountName: 1}).exec(function(err, allTransactions){
+         if (err){
             console.log(err);
         } else {
             res.render("transactions/index", {transactions: allTransactions});
@@ -24,8 +23,7 @@ router.get("/",  middleware.isLoggedIn, function(req, res) {
 
 //INDEX route Unreconciled
 router.get("/unrecon",  middleware.isLoggedIn, function(req, res) {
-    Transaction.find({"reconciled.status": "No"}).sort({date: -1, accountName: 1}).exec(function(err, allTransactions){
-        //Transaction.find({}).sort({description: 1, original_description: 1}).exec(function(err, allTransactions){
+    Transaction.find({"reconciled.status": "No"}).sort({date: -1, merchant: 1, accountName: 1}).exec(function(err, allTransactions){
         if (err){
             console.log(err);
         } else {
@@ -37,7 +35,6 @@ router.get("/unrecon",  middleware.isLoggedIn, function(req, res) {
 //INDEX route y Account
 router.get("/byacct",  middleware.isLoggedIn, function(req, res) {
     Transaction.find({}).sort({accountName: 1, date: -1}).exec(function(err, allTransactions){
-        //Transaction.find({}).sort({description: 1, original_description: 1}).exec(function(err, allTransactions){
         if (err){
             console.log(err);
         } else {
@@ -46,10 +43,9 @@ router.get("/byacct",  middleware.isLoggedIn, function(req, res) {
     });
 });
 
-//INDEX route by Description
+//INDEX route by Merchant
 router.get("/bydesc",  middleware.isLoggedIn, function(req, res) {
-    Transaction.find({}).sort({description: 1, date: -1}).exec(function(err, allTransactions){
-        //Transaction.find({}).sort({description: 1, original_description: 1}).exec(function(err, allTransactions){
+    Transaction.find({}).sort({merchant: 1, date: -1}).exec(function(err, allTransactions){
         if (err){
             console.log(err);
         } else {
@@ -60,8 +56,7 @@ router.get("/bydesc",  middleware.isLoggedIn, function(req, res) {
 //CREATE route
 router.post("/",  middleware.isLoggedIn,  function(req, res) {
    var newTransaction = {date: req.body.date,
-                         description: req.body.description,
-                         original_description: req.body.orig_desc,
+                         merchant: req.body.merchant,
                          amount: req.body.amount,
                          transaction_type: req.body.trans_type,
                          accountName: req.body.acct_name};
@@ -100,7 +95,7 @@ router.get("/:id", middleware.isLoggedIn, function(req, res) {
 router.get("/account/:account", middleware.isLoggedIn, function(req, res) {
     //  find the Transaction with the ID provided
     //render the Show Template with that Transaction
-    Transaction.find({accountName: req.params.account, reconciled: {$ne: "yes"}}).sort({accountName: 1, description: 1, date: -1}).exec(function(err, allTransactions){
+    Transaction.find({accountName: req.params.account, reconciled: {$ne: "yes"}}).sort({accountName: 1, merchant: 1, date: -1}).exec(function(err, allTransactions){
         if (err) {
             console.log(err);
         } else {

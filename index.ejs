@@ -21,17 +21,18 @@
                 <thead>
                     <tr>
                         <th width="15%" id="tbldate">Day of Month</th>
-                        <th width="30%" >Description</th>
+                        <th width="30%" >Merchant</th>
                         <th width="30%" >Account</th>
                         <th class="rt_aligned" width="10%" >Amount</th>
                     </tr>
                 </thead>
                 <tbody  style="height: 400px">
                     <% plans.forEach(function(plan) {  %>
+                    <% var date = plan.date.toString();%>
                         <tr>
-                            <td width="15%"><%=plan.dayOfMonth%></td>
-                            <td width="30%" ><%=plan.description%></td>
-                            <td width="30%" ><%=plan.accountName%></td>
+                            <td width="15%"><%=date.substr(4, 3) + " " + date.substr(8, 2) + " " + date.substr(11, 4)%></td>
+                            <td width="30%" ><%=plan.merchant%></td>
+                            <td width="30%" ><%=plan.accountName.replace(/_/g, ' ')%></td>
                             <td width="10%" class="rt_aligned"><%=plan.amount.toFixed(2)%></td>
                             <td width="7%" > <a class="btn btn-warning btn-xs pull-right" href="/TransRecon/plan/<%=plan._id%>/edit">Edit</a></td>
                             <td width="8%"> <a class="btn btn-xs btn-danger pull-right" href="/TransRecon/plan/<%=plan._id%>/delete">Delete</a></td>

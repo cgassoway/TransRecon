@@ -17,7 +17,7 @@
                     <thead>
                         <tr>
                             <th width="10%" id="tbldate">Date</th>
-                            <th width="25%">Description</th>
+                            <th width="25%">Merchant</th>
                             <th width="25%">Account Name</th>
                             <th width="20%">Institution</th>
                             <th width="10%" class="rt_aligned">Amount</th>
@@ -30,9 +30,9 @@
                         <% var date = transaction.date.toString();%>
                         <tr>
                             <td width="10%" ><%=date.substr(4, 3) + " " + date.substr(8, 2) + " " + date.substr(11, 4)%></td>
-                            <td width="25%" ><%=transaction.description%></td>
-                            <td width="25%" ><%=transaction.accountName%></td>
-                            <td width="20%" ><%=transaction.institution%></td>
+                            <td width="25%" ><%=transaction.merchant%></td>
+                            <td width="25%" ><%=transaction.accountName.replace(/_/g, ' ')%></td>
+                            <td width="20%" ><%=transaction.institution.replace(/_/g, ' ')%></td>
                             <td width="10%" class="rt_aligned"><%=transaction.amount.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
                             <td width="10%" ><%=transaction.reconciled.status%></td>
                             <!--<td width="10%" > <a class="btn btn-xs btn-warning" href="/transactions/<%=transaction._id%>/edit">Edit Transaction</a></td>-->

@@ -13,7 +13,7 @@ var express     = require("express"),
 
 //INDEX route
 router.get("/",  middleware.isLoggedIn, function(req, res) {
-  Register.find({}).sort({date: -1, accountName: 1, description: 1}).exec(function(err, allRegisters){
+  Register.find({}).sort({date: -1, merchant: 1, accountName: 1}).exec(function(err, allRegisters){
     if (err){
         console.log(err);
     } else {
@@ -24,7 +24,7 @@ router.get("/",  middleware.isLoggedIn, function(req, res) {
 
 //INDEX route
 router.get("/unrecon",  middleware.isLoggedIn, function(req, res) {
-  Register.find({'reconciled.status': "No"}).sort({date: -1, accountName: 1, description: 1}).exec(function(err, allRegisters){
+  Register.find({'reconciled.status': "No"}).sort({date: -1,  merchant: 1, accountName: 1}).exec(function(err, allRegisters){
     if (err){
         console.log(err);
     } else {
@@ -84,7 +84,7 @@ router.get("/new/recur", middleware.isLoggedIn, function(req, res) {
 //CREATE ROUTE
 router.post("/", middleware.isLoggedIn, function(req, res){
   var newRegister =   {date: req.body.date,
-                      description: req.body.description,
+                      merchant: req.body.merchant,
                       amount: req.body.amount,
                       accountName: req.body.accountName,
                       institution: req.body.institution,
@@ -99,7 +99,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
       newRegister.reconciled.id = 0,
       newRegister.reconciled.status = "No",
       newRegister.reconciled.date = "" ,
-      newRegister.reconciled.description = "",
+      newRegister.reconciled.merchant = "",
       newRegister.reconciled.amount =  0,
       newRegister.reconciled.transaction_type =  "",
       newRegister.reconciled.accountName =  "",

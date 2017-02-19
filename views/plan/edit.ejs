@@ -1,79 +1,73 @@
 <%  include ../partials/header  %>
-<!--
-<div class="container">
-    <div class="row>">
-        <h1 style="text-align: center;">Edit Plan Item</h1>
-        
-        <div style="width:30%; margin: 40px auto;">-->
+
 <div class="container>
-    <div class="row">
-        <!--<div class="col-md-3 col-xs-3></div>-->
-        <div class="col-md-4 col-xs-4 col-md-offset-4 col-xs-offset-4">
-            <h1 style="text-align: center;">Edit Plan Item</h1>
+  <div class="row">
+    <!--<div class="col-md-3 col-xs-3></div>-->
+    <div class="col-md-4 col-xs-4 col-md-offset-4 col-xs-offset-4">
+      <h1>Edit Plan Item</h1>
+    
+    <!--<div class="col-md-4" style="width:30%; margin: 20px auto;">-->
         
-        <!--<div class="col-md-4" style="width:30%; margin: 20px auto;">-->
-            
-            
-        
-            <form action="/TransRecon/plan/<%=plan._id%>?_method=PUT" method="POST">
-                <div class="form-group">
-                    <h5>Day of the Month</h5>
-                    <input class="form-control" type="text" style="width:30%" name="dayOfMonth" value="<%= plan.dayOfMonth%>">
-                </div>
-                <div class="form-group">
-                    <h5>Description</h5>
-                    <input class="form-control" type = "text" name="plan[description]"  value="<%=plan.description%>">
-                </div>
+      <form action="/TransRecon/plan/<%=plan._id%>?_method=PUT" method="POST">
+          <div class="form-group">
+            <% var currentDate = plan.date %>
+                  <% var day = currentDate.getDate() %>
+                  <% var month = currentDate.getMonth() + 1 %>
+                  <% var year = currentDate.getFullYear() %>
+                  <% var date = month + "/" + day + "/" + year %>
+            <label>Date<input class="form-control" type="text" style="width:31%" name="plan[date]" value="<%= plan.date%>"></label>
+          </div>
+          <div class="form-group">
+            <label>Merchant/Payee<input class="form-control" type = "text" name="plan[merchant]"  value="<%=plan.merchant%>"></label>
+          </div>
 
-                <div class="form-group">
-                    <h5>From  Account Name</h5>
-
-                    <select class="form-control" name="plan[accountName]" required>
-                        <% accts.forEach(function(acct) {
-                            if (plan.fromAccountName === acct) {
-                                %>
-                                <option value=<%=acct%> selected="selected"><%=acct%></option>
-                                <%
-                                 } else { %>
-                                    <option value=<%=acct%>><%=acct%></option>
-                                    <% } %>
-                        <% });
-                        
-                        %>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <h5>To Account Name</h5>
-
-                    <select class="form-control" name="plan[accountName]" required>
-                        <% accts.forEach(function(acct) {
-                            if (plan.toAccountName === acct) {
-                                %>
-                                <option value=<%=acct%> selected="selected"><%=acct%></option>
-                                <%
-                                 } else { %>
-                                    <option value=<%=acct%>><%=acct%></option>
-                                    <% } %>
-                        <% });
-                        
-                        %>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <h5>Amount</h5>
-                    <input class="form-control" type="number" style="width:30%" step="any" name="plan[amount]"  value="<%=plan.amount.toFixed(2)%>">
-                </div>
-                <div class="form-group">
-                    <h5>Memo</h5>
-                    <input class="form-control" type="text" name="plan[memo]"  value="<%=plan.memo%>">
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-lg btn-primary">Update</button>
-                    <button class="pull-right btn btn-lg btn-primary" action="/plan/">Go Back</button>
-                </div>
-            </form>
-        </div>
+          <div class="form-group">
+            <label>Account Name<select class="form-control" name="plan[accountName]" required>
+              <% accts.forEach(function(acct) {
+                if (plan.fromAccountName === acct) {
+                    %>
+                    <option value=<%=acct%> selected="selected"><%=acct%></option>
+                    <%
+                      } else { %>
+                      <option value=<%=acct%>><%=acct%></option>
+                      <% } %>
+                <% });
+              
+              %>
+              </select>
+            </label>
+          </div>
+          <!--
+          <div class="form-group">
+            <label>To Account Name<select class="form-control" name="plan[accountName]" required>
+              <% accts.forEach(function(acct) {
+                if (plan.toAccountName === acct) {
+                  %>
+                  <option value=<%=acct%> selected="selected"><%=acct%></option>
+                  <%
+                    } else { %>
+                      <option value=<%=acct%>><%=acct%></option>
+                      <% } %>
+              <% });
+              
+              %>
+              </select>
+            </label>
+          </div>
+          -->
+          <div class="form-group">
+            <label>Amount<input class="form-control" type="number" style="width:30%" step="any" name="plan[amount]"  value="<%=plan.amount.toFixed(2)%>"></label>
+          </div>
+          <div class="form-group">
+            <label>Memo<input class="form-control" type="text" name="plan[memo]"  value="<%=plan.memo%>"></label>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-lg btn-primary">Update</button>
+            <button class="pull-right btn btn-lg btn-primary" action="/plan/">Go Back</button>
+          </div>
+        </form>
     </div>
+  </div>
 </div>
 
 

@@ -3,11 +3,11 @@ var mongoose = require("mongoose");
 //Schema setup
 var registerSchema = new mongoose.Schema({
     date: Date,
-    description: String,
     accountName: String,
+    institution: String,
+    merchant: String,
     amount: Number,
     memo: String,
-    institution: String,
     reconciled: {
             id:{
                 type: mongoose.Schema.Types.ObjectId,
@@ -15,7 +15,7 @@ var registerSchema = new mongoose.Schema({
             },
             status: String,
             date: Date,
-            description: String,
+            merchant: String,
             amount: Number,
             transaction_type: String,
             accountName: String,

@@ -5,12 +5,13 @@ var Currency = mongoose.Types.Currency;
 
 var transactionSchema = new mongoose.Schema({
     date: Date,
-    institution: String,
-    accountName: String,
-    merchant: String,
+    description: String,
+    original_description: String,
     amount: Number,
     transaction_type: String,
     category: String,
+    accountName: String,
+    institution: String,
     reconciled: {
             id:{
                 type: mongoose.Schema.Types.ObjectId,

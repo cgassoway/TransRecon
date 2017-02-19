@@ -53,13 +53,13 @@ router.get("/new/recur", middleware.isLoggedIn, function(req, res) {
 
 router.post("/", middleware.isLoggedIn, function(req, res){
 
-    var newPlan =   {dayOfMonth: req.body.dayOfMonth,
-                        description: req.body.description,
-                        amount: req.body.amount,
-                        accountName: req.body.accountName,
-                        memo: req.body.memo
-                    }   
-    var date = new Date();
+  var newPlan = {date: req.body.date,
+                 merchant: req.body.merchant,
+                 amount: req.body.amount,
+                 accountName: req.body.accountName,
+                 memo: req.body.memo
+                }   
+    /*var date = new Date();
     //var month = date.getMonth();
     //var year = date.getFullYear();
     var incr = 1;
@@ -67,9 +67,10 @@ router.post("/", middleware.isLoggedIn, function(req, res){
         incr = 0
        }
     var fullDate = new Date(date.getFullYear(), (date.getMonth() + incr), req.body.dayOfMonth)
-    console.log(fullDate)
-    var newRegister =   {date: fullDate,
-                        description: req.body.description,
+    console.log(fullDate)*/
+
+    var newRegister =   {date: req.body.date,
+                        merchant: req.body.merchant,
                         amount: req.body.amount,
                         accountName: req.body.accountName,
                         memo: req.body.memo
@@ -89,7 +90,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
         } else {
             newRegister.reconciled.id = 0,
             newRegister.reconciled.date = "" ,
-            newRegister.reconciled.description = "",
+            newRegister.reconciled.merchant = "",
             newRegister.reconciled.amount =  0,
             newRegister.reconciled.transaction_type =  "",
             newRegister.reconciled.accountName =  "",
