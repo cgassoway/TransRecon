@@ -1,0 +1,39 @@
+<div class="form-group">
+          <label>Financial Institution<select class="form-control" name="institution" required>
+            <% finInst.forEach(function(inst) { %>
+              <option value=<%=inst%>><%=inst%></option>
+              <% }); %>
+            </select>
+          </label>
+        </div> */
+
+
+
+ <!--<div class="form-group">
+                    <label>Financial Institution<select class="form-control" name="register["institution"]" required>
+                        <% finInst.forEach(function(inst) {
+                            if (register.institution === inst) {
+                                %>
+                                <option value=<%=inst%> selected="selected"><%=inst%></option>
+                                <%
+                                 } else { %>
+                                    <option value=<%=inst%>><%=inst%></option>
+                                    <% } %>
+                        <% });
+                        %>
+                    </select></label>
+                </div> -->
+        
+
+        <!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<!--<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
+
+<!-- SmartMenus jQuery plugin 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.smartmenus/1.0.0/jquery.smartmenus.js"></script>
+
+<!-- SmartMenus jQuery Bootstrap Addon 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.smartmenus/1.0.0-beta1/addons/bootstrap/jquery.smartmenus.bootstrap.js"></script>
+<!--<script type="text/javascript" src="validator.min.js"></script>-->

@@ -36,10 +36,10 @@
             console.log("length is " + result.length)
             if (result.length > 0) {
                 alert("no selected items" + result) ;
-                href = "/match/" + <%=transaction._id%> + "/edit/" + result;
+                href = "/match/" + transaction._id + "/edit/" + result;
             } else {
                 //alert(result.length + "selected items" + result);
-                href = "/match/" + <%=transaction._id%> + "/edit";
+                href = "/match/" + transaction._id + "/edit";
             }
             console.log("href is " + href)
             window.location=href;
@@ -122,25 +122,4 @@
         </div>
     </div>        
 </div>
- <!--   
-<script>
-    //$(document).ready(function () {   //helper: "clone",
-        $("#draggable").draggable({
-            helper: "clone",
-            cursor: "move"
-            //containment: "ui-widget-content"
-            });
-        
-        $("#droppable").droppable({
-            drop: function () {
-                tolerance: 'fit',
-                accept: ".one",
-                    drop: function(){
-                        id = $(this).attr("id");
-                         alert (id);
-                    }    
-                }
-        });
-    //});
-</script> -->
-    
+ 

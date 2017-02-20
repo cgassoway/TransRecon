@@ -87,7 +87,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
                       merchant: req.body.merchant,
                       amount: req.body.amount,
                       accountName: req.body.accountName,
-                      institution: req.body.institution,
+                      //institution: req.body.institution,
                       memo: req.body.memo
   }   
   // Create new Register
@@ -140,15 +140,16 @@ router.post("/", middleware.isLoggedIn, function(req, res){
           throw err;
         }
         //console.log(":id/edit institution find")
-        Transactions.find().distinct('institution', function(err, finInst){
+        /*Transactions.find().distinct('institution', function(err, finInst){
           if (err) {
             console.log("Register.find().distinct  - " + err);
             throw err;
           }
         
         res.render("register/edit", {register: foundRegister, accts:accts, finInst:finInst });
-        });
-      });
+        });*/
+        res.render("register/edit", {register: foundRegister, accts:accts });
+      }); 
     };
   });
 });

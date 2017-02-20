@@ -26,7 +26,7 @@
                         <th class="rt_aligned" width="10%" >Amount</th>
                     </tr>
                 </thead>
-                <tbody  style="height: 400px">
+                <tbody  style="height:375px">
                     <% plans.forEach(function(plan) {  %>
                     <% var date = plan.date.toString();%>
                         <tr>
@@ -41,7 +41,7 @@
                                 </form>-->
                             </td>
                             <% if (plan.memo) { %>
-                                <td><%=plan.memo%></td>
+                                <td width="85%" class="rt_aligned"><%=plan.memo%></td>
                             <%}%>
                         </tr>
                     <%});%>
