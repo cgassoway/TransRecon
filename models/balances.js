@@ -9,6 +9,8 @@ var balanceSchema = new mongoose.Schema( {
     accountId: String,
     accountType: String,
     currentBalance: Number,
+    dueAmt: Number,
+    dueDate: String,
     created: {type:Date, default: Date.now()},
     updated: {type:Date, default: Date.now()}
 });

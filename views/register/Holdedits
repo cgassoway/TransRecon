@@ -37,3 +37,15 @@
 <!-- SmartMenus jQuery Bootstrap Addon 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.smartmenus/1.0.0-beta1/addons/bootstrap/jquery.smartmenus.bootstrap.js"></script>
 <!--<script type="text/javascript" src="validator.min.js"></script>-->
+
+
+script language="javascript">
+  function autoResizeDiv()
+  {
+    var height = $(window).height();   // returns height of browser viewport
+    document.getElementsByClassName('resize').style.height = window.innerHeight +'px';
+  }
+  window.onresize = autoResizeDiv;
+  console.log("height = " + window.innerHeight + "px");
+  autoResizeDiv();
+</sc

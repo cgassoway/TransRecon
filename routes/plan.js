@@ -57,6 +57,8 @@ router.post("/", middleware.isLoggedIn, function(req, res){
                  merchant: req.body.merchant,
                  amount: req.body.amount,
                  accountName: req.body.accountName,
+                 frequency: req.body.frequency,
+                 untilDate: req.body.untilDate,
                  memo: req.body.memo
                 }   
     /*var date = new Date();

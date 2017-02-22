@@ -18,7 +18,7 @@
             <label>Date<input class="form-control" type="text" style="width:31%" name="plan[date]" value="<%= plan.date%>"></label>
           </div>
           <div class="form-group">
-            <label>Merchant/Payee<input class="form-control" type = "text" name="plan[merchant]"  value="<%=plan.merchant%>"></label>
+            <label>Merchant<input class="form-control" type = "text" name="plan[merchant]"  value="<%=plan.merchant%>"></label>
           </div>
 
           <div class="form-group">
@@ -58,6 +58,17 @@
           <div class="form-group">
             <label>Amount<input class="form-control" type="number" style="width:30%" step="any" name="plan[amount]"  value="<%=plan.amount.toFixed(2)%>"></label>
           </div>
+          <div class="form-group">
+                    <label>Frequency<select class="form-control" name="plan[frequency]" value="<%=plan.frequency%>">
+                            <option value="Once">Once</option>
+                            <option value="Monthly">Monthly</option>
+                            <option value="Quarterly">Quarterly</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>Until Date<input class="form-control" style="width:40%" type="text" name="plan[untilDate]" value="<%= plan.untilDate %>" placeholder="mm/dd/yyyy"></label>
+                </div>
           <div class="form-group">
             <label>Memo<input class="form-control" type="text" name="plan[memo]"  value="<%=plan.memo%>"></label>
           </div>

@@ -4,7 +4,7 @@
   <div class="row panel panel-default">
     <div class="panel-body col-md-10 col-xs-10 col-md-offset-1 col-xs-offset-1">
     <h2 style="text-align: center;">Browse Register Items</h2>
-    <table id="myTable" class="table table-fixedheader table-bordered table-condensed table-striped table-hover">
+    <table style="height: 100%" id="myTable" class="table table-fixedheader table-bordered table-condensed table-striped table-hover">
     <!--<table class="table table-bordered table-condensed table-hover">-->
       <thead>
         <tr>
@@ -15,7 +15,7 @@
           <th width="10%" class="rt_aligned">Amount</th>
         </tr>
       </thead>
-      <tbody  style="height: 375px">
+      <tbody>
         <% registers.forEach(function(register) {  %>
         <% var date = register.date.toString();%>
           <tr>

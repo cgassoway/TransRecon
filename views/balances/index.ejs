@@ -25,6 +25,10 @@
                 <th>Account</th>
                 <th>Account Number</th>
                 <th class="rt_aligned">Current Balance</th>
+                <% if(report === "bank") { %>
+                    <th>Due Date</th>
+                    <th>Amount Due</th>
+                <% } %>
              </tr>
         </thead>
         <tbody>
@@ -34,6 +38,10 @@
                     <td><%=balances.accountName%></td>
                     <td><%=balances.accountId%></td>
                     <td class="rt_aligned"><%=balances.currentBalance.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
+                    <% if(balances.accountType === "credit") { %>
+                    <td><%=balances.dueDate%></td>
+                    <td><%=balances.dueAmt.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
+                <% } %>
                     <!--<td> <a class="btn btn-warning btn-xs" href="/balances/<%=balances._id%>/edit">Edit Balances</a></td>-->
                 </tr>
             <% }); %>

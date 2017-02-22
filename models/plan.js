@@ -7,7 +7,8 @@ var planSchema = new mongoose.Schema({
     accountName: String,
     merchant: String,
     amount: Number,
-    interval: String,
+    frequency: String,
+    untilDate:Date,
     memo: String,
     created: {type:Date, default: Date.now()},
     updated: {type:Date, default: Date.now()}    

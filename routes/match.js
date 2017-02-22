@@ -62,6 +62,7 @@ router.get("/all",   middleware.isLoggedIn, function(req, res) {
     });
 });
 
+/*
 //Reports Selection Route
 
 router.get("/reports",   middleware.isLoggedIn, function(req, res) {
@@ -155,7 +156,7 @@ router.get("/:id",  middleware.isLoggedIn, function(req, res) {
     });
 });
 
- */
+*/
  //EDIT MATCH ROUTE
  
  //router.get("/:id/edit", middleware.isLoggedIn, function(req, res) {
@@ -272,9 +273,9 @@ function updateTransaction(transData, foundTransaction, addNew, cb){
         }); 
         if (addNew === "yes") {
             var newRegister =   {date: foundTransaction.date,
-                    description: foundTransaction.description,
                     amount: transData.amount,
                     accountName: foundTransaction.accountName,
+                    merchant: foundTransaction.merchant,
                     institution: foundTransaction.institution,
                     memo: " ",
                     
@@ -288,10 +289,11 @@ function updateTransaction(transData, foundTransaction, addNew, cb){
                         newRegister.reconciled.id = foundTransaction._id
                         newRegister.reconciled.status = foundTransaction.reconciled.status
                         newRegister.reconciled.date = foundTransaction.date
-                        newRegister.reconciled.description = foundTransaction.description
+                        newRegister.reconciled.merchant = foundTransaction.merchant
                         newRegister.reconciled.amount = foundTransaction.amount
                         newRegister.reconciled.transaction_type = foundTransaction.transaction_type
                         newRegister.reconciled.accountName = foundTransaction.accountName
+                        newRegister.reconciled.institution = foundTransaction.institution                 
                         
                         newRegister.save();
                         

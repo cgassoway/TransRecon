@@ -24,8 +24,9 @@ var transactionRoutes   = require("./routes/transaction"),
     registerRoutes      = require("./routes/register"),
     planRoutes          = require("./routes/plan")
     balancesRoutes		= require("./routes/balances"),
-    indexRoutes         = require("./routes/auth")
-    matchRoutes      = require("./routes/match")
+    indexRoutes         = require("./routes/auth"),
+    matchRoutes         = require("./routes/match"),
+    reportsRoutes       = require("./routes/reports")
 
 console.log(config.get('database'));
 //var url= process.env.DATABASEURL || "mongodb://localhost/fininfo";
@@ -69,6 +70,7 @@ app.use("/TransRecon/register", registerRoutes);
 app.use("/TransRecon/plan", planRoutes);
 app.use("/TransRecon/balances", balancesRoutes);
 app.use("/TransRecon/match", matchRoutes);
+app.use("/TransRecon/reports", reportsRoutes);
 //app.use("/", indexRoutes);
 //app.use("/transactions", transactionRoutes);
 //app.use("/transactions/:id/transactions", transactionRoutes);

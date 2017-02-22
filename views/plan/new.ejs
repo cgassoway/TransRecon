@@ -33,6 +33,18 @@
                 </div>
 
                 <div class="form-group">
+                    <label>Frequency<select class="form-control" name="frequency" >
+                            <option value="Once">Once</option>
+                            <option value="Monthly">Monthly</option>
+                            <option value="Quarterly">Quarterly</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>Until Date<input class="form-control" style="width:40%" type="text" name="untilDate" value=<%= date %> placeholder="mm/dd/yyyy"></label>
+                </div>
+
+                <div class="form-group">
                     <label>Memo<input class="form-control" type="text" name="memo" placeholder="Purpose"></label>
                 </div>
                 <div class="form-group">
