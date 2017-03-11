@@ -175,7 +175,7 @@ function updateRegister(planItem) {
     if (!foundReg.length) {
       Register.create(newRegister, function(err, newReg) {
       if (err) {
-        console.log("create error for " + planItem.description)
+        console.log("create error for " + planItem.merchant)
         } else {
           newReg.reconciled.id = 0,
           newReg.reconciled.status = "No",
@@ -281,7 +281,7 @@ Plan.find().exec(function(err, plans) {
     //console.log("incrMonth = " + incrMonth)
     var fullDate = new Date(date.getFullYear() + incrYear, (date.getMonth() + incrMonth), planItem.dayOfMonth)
     var newRegister =   {date: fullDate,
-                description: planItem.description,
+                merchant: planItem.merchant,
                 amount: planItem.amount,
                 accountName: planItem.accountName,
                 memo: planItem.memo,
@@ -291,12 +291,12 @@ Plan.find().exec(function(err, plans) {
       if (!foundReg.length) {
         Register.create(newRegister, function(err, newReg) {
         if (err) {
-          console.log("create error for " + planItem.description)
+          console.log("create error for " + planItem.merchant)
           } else {
             newReg.reconciled.id = 0,
             newReg.reconciled.status = "No",
             newReg.reconciled.date = "" ,
-            newReg.reconciled.description = "",
+            newReg.reconciled.merchant = "",
             newReg.reconciled.amount =  0,
             newReg.reconciled.transaction_type =  "",
             newReg.reconciled.dateTo =  "",

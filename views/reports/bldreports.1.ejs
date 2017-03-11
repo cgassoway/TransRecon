@@ -1,0 +1,116 @@
+<%  include ../partials/header  %>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>bootstrap datepicker examples</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  </head>
+  <body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 col-xs-4 col-md-offset-4 col-xs-offset-4">
+        <h2 style="text-align: center;">Build Reports Request</h2>
+        <%  include ../partials/bldRptForm  %>
+        
+        <!--
+        <form action="/TransRecon/reports/bldreports" class="form-horizontal" role="form" method="GET">
+          <div class="form-group">
+            <h4>Date Range for Reports</h4>        
+            <div class="input-group input-daterange form-group">
+              <input type="text" class="form-control" id="dateFrom" name="dateFrom" value="">
+              <label class="input-group-addon btn" for="dateFrom">
+                  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+              </label>      
+              <span class="input-group-addon">to</span>
+              <input type="text" class="form-control" id="dateTo" name="dateTo" value="">
+              <label class="input-group-addon btn" for="dateTo">
+                  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+              </label>      
+            </div>
+          </div>
+          <div class="form-group">
+            <h4>Financial Institution</h4>
+            <select class="form-control" name="finInst" required>
+              <option value="All" selected="selected">All</option>
+                <% finInst.forEach(function(acct) { %>
+              <option value=<%=acct%>><%=acct%></option>
+                <% }) %>
+            </select>
+          </div>
+          <!--<div class="form-group">
+            <h4>Transactions/Registers</h4>
+            <div class="radio">
+              <label><input type="radio"  id="trans" name="regTrans" value="Transaction" >Transactions</label>
+              <label><input type="radio"  id="reg" name="regTrans" checked="checked" value="Register" >Register</label>
+            </div>
+          </div> 
+          <div class="form-group" style="width:50%; float: left; margin-bottom: 30px;">
+            <h4>Reconciled?</h4>
+            <div class="radio">
+              <label>
+                <input type="radio" id="yes" name="reconciled" value="Yes" />Yes
+              </label>
+              <label>
+                <input type="radio" id="no" name="reconciled" value="No" />No
+              </label>
+              <label>
+                <input type="radio" id="both" name="reconciled" checked="checked" value="Both" />Both
+              </label>
+            </div>                            
+          </div>
+      <!--    <div class="form-group" style="width:50%; float: right;  margin-bottom: 30px;">
+            <h4>Credit/Debit/Both</h4>
+            <div class="radio">
+              <label>
+                <input type="radio" id="credit" name="credDeb" value="Credit">Credit
+              </label>
+              <label>
+                <input type="radio" id="debit" name="credDeb" checked="checked" value="Debit">Debit
+              </label>
+              <label>
+                <input type="radio" id="both" name="credDeb" checked="checked" value="Both">Both
+              </label>
+            </div>
+          </div> 
+
+          <div class="form-group" style="margin-top: 10px;">
+            <input type="submit" class="btn btn-primary btn-lg pull-right" value="Create Report">
+          </div>
+        </form > -->
+      </div>
+    </div>
+  </div>
+      
+  <script type="text/javascript">
+    // When the document is ready
+    $(document).ready(function () {
+        
+                    
+      $('#dateFrom').datepicker({
+        format: 'mm-dd-yyyy',
+        autoclose: true
+        });
+
+      //$('#dateFrom').on('change', function() {
+      //   alert($('#dateFrom').val());
+      //});
+      
+      $('#dateTo').datepicker({
+        format: 'mm-dd-yyyy',
+        autoclose: true
+        });
+
+      $('.input-daterange input').each(function() {
+        $(this).datepicker("clearDates");
+        $(this).datepicker("setDate", new Date());
+        $(this).datepicker({
+          autoclose: true,
+          todayHighlight: true
+        });
+      });
+    });
+  </script>
+</body>
+</html>

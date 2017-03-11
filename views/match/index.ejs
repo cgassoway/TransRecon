@@ -66,7 +66,7 @@
                 <th width="18%" id="tbldate">Date</th>
                 <th width="32%">Merchant</th>
                 <th width="26%">Account</th>
-                <th width="12%" class="rt_aligned">Amount</th>
+                <th width="14%" class="rt_aligned">Amount</th>
               </tr>
             </thead>
             <tbody>
@@ -76,8 +76,8 @@
                     <td width="18%"><%=date.substr(4, 3) + " " + date.substr(8, 2) + " " + date.substr(11, 4)%></td>
                     <td width="32%"><%=register.merchant%></td>
                     <td width="26%"><%=register.accountName.replace(/_/g, ' ')%></td>
-                    <td width="12%" class="rt_aligned"><%=register.amount.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
-                    <td width="12%" ><a class="btn btn-warning btn-xs pull-right" href="/TransRecon/register/<%=register._id%>/edit">Edit?</a></td>
+                    <td width="14%" class="rt_aligned"><%=register.amount.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
+                    <td width="10%" ><a class="btn btn-warning btn-xs pull-right" href="/TransRecon/register/<%=register._id%>/edit">Edit?</a></td>
                     <td class="hidden"> <%= register._id%></td>
                 </tr>
                 <% }); %>
@@ -95,8 +95,8 @@
               <th width="18%" id="tbldate">Date</th>
               <th width="32%">Merchant</th>
               <th width="26%">Account</th>
-              <th width="12%">Amount</th>
-              <th width="12%">Recon</th>
+              <th width="14%" class="rt_aligned">Amount</th>
+              <th width="10%">Recon</th>
             </tr>
           </thead>
           <tbody>
@@ -106,8 +106,8 @@
                 <td width="18%"><%=date.substr(4, 3) + " " + date.substr(8, 2) + " " + date.substr(11, 4)%></td>
                 <td width="32%"><%=transaction.merchant%></td>
                 <td width="26%"><%=transaction.accountName.replace(/_/g, ' ')%></td>
-                <td width="12%" class="rt_aligned"><%=transaction.amount.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
-                <td width="12%" > <a class="btn btn-warning btn-xs pull-right" id="recon" href="/TransRecon/match/<%=transaction._id%>/edit"><%=transaction.reconciled.status%></a></td>
+                <td width="14%" class="rt_aligned"><%=transaction.amount.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
+                <td width="10%" > <a class="btn btn-warning btn-xs pull-right" id="recon" href="/TransRecon/match/<%=transaction._id%>/edit"><%=transaction.reconciled.status%></a></td>
               </tr>
             <% }); %>
           </tbody>

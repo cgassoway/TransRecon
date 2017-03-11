@@ -42,8 +42,8 @@ fs.readFile(filePathTrans, function (err, data) { // Read the contents of the fi
             }
         //console.log("date - " + refDate);
         Transaction.count({"date": refDate, 
-            "description": item.merchant, 
-            "original_description": item.omerchant,
+            "merchant": item.merchant, 
+            "original_merchant": item.omerchant,
             "amount": dolAmount,
             "transaction_type": typeTrans}, function(err, numFound) {
                 //console.log("refDate - " +  refDate);
@@ -51,8 +51,8 @@ fs.readFile(filePathTrans, function (err, data) { // Read the contents of the fi
                 if (numFound === 0) {
                     transaction = Transaction({
                         date: refDate,
-                        description: item.merchant,
-                        original_description: item.omerchant,
+                        merchant: item.merchant,
+                        original_merchant: item.omerchant,
                         amount: dolAmount,
                         transaction_type: typeTrans,
                         category: item.category,
@@ -74,8 +74,8 @@ fs.readFile(filePathTrans, function (err, data) { // Read the contents of the fi
                     
                     //  This is wrong
                     //I need do a foreach to find the ones that are the same
-                    //  accountName and description but different dates and maybe amounts.
-                    //  if I find two with the same description and accountName but less than 2 days apart
+                    //  accountName and merchant but different dates and maybe amounts.
+                    //  if I find two with the same merchant and accountName but less than 2 days apart
                     //  I will update reconciled with "check" flag to show they may be related 
                     //  with one being the pending and the other the final transaction.
                     //  reconcilitation process will pull them together, and operator will indicate the old 
@@ -84,7 +84,7 @@ fs.readFile(filePathTrans, function (err, data) { // Read the contents of the fi
                     
                   
                     var msDay = 60*60*24*1000;
-                    Transaction.find({"description": item[1], "amount": item[3], "accountName": item[6]},
+                    Transaction.find({"merchant": item[1], "amount": item[3], "accountName": item[6]},
                         function(err,found){
                             if (err) {
                                 console.log(err);
@@ -162,7 +162,7 @@ Plan.find().exec(function(err, plans) {
         //console.log("incrMonth = " + incrMonth)
         var fullDate = new Date(date.getFullYear() + incrYear, (date.getMonth() + incrMonth), planItem.dayOfMonth)
         var newRegister =   {date: fullDate,
-                        description: planItem.description,
+                        merchant: planItem.merchant,
                         amount: planItem.amount,
                         accountName: planItem.accountName,
                         memo: planItem.memo,
@@ -172,12 +172,12 @@ Plan.find().exec(function(err, plans) {
             if (!foundReg.length) {
                 Register.create(newRegister, function(err, newReg) {
                 if (err) {
-                    console.log("create error for " + planItem.description)
+                    console.log("create error for " + planItem.merchant)
                     } else {
                         newReg.reconciled.id = 0,
                         newReg.reconciled.status = "No",
                         newReg.reconciled.date = "" ,
-                        newReg.reconciled.description = "",
+                        newReg.reconciled.merchant = "",
                         newReg.reconciled.amount =  0,
                         newReg.reconciled.transaction_type =  "",
                         newReg.reconciled.dateTo =  "",

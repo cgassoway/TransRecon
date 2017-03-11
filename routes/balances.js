@@ -65,7 +65,7 @@ router.get("/new", middleware.isLoggedIn, function(req, res) {
 router.post("/", middleware.isLoggedIn, function(req, res){
 
    var newBalances =    {dateDue: req.body.dateDue,
-                        description: req.body.description,
+                        merchant: req.body.merchant,
                         planAmount: req.body.planAmount,
                         chargedAmount: req.body.chargedAmount,
                         frequency: req.body.frequency,

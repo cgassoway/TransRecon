@@ -23,17 +23,17 @@ router.get("/",   middleware.isLoggedIn, function(req, res) {
                 } else { 
                     signedAmount =testTrans.amount.toFixed(2)
                     }
-            //console.log("testTrans.date - " + testTrans.date.toLocaleDateString('en-US') + " / " + signedAmount + " / " + testTrans.description + " /" + testTrans.accountName + " /")
+            //console.log("testTrans.date - " + testTrans.date.toLocaleDateString('en-US') + " / " + signedAmount + " / " + testTrans.merchant + " /" + testTrans.accountName + " /")
             
             var existingData = {date: testTrans.date,
-                                description: testTrans.description,
+                                merchant: testTrans.merchant,
                                 amount: signedAmount,
                                 accountName: testTrans.accountName
                                 }
             var addNew = "no";
             updateTransaction(existingData, testTrans, addNew, function(err2,foundReg){
                 if (err2){
-                        console.log('error updated user: ',err2);
+                        console.log('error updated user 2: ',err2);
                     }else{
                         console.log('user updated: ',foundReg);
                         }
@@ -196,13 +196,13 @@ router.put("/:id", middleware.isLoggedIn, function(req, res){
                 //}
                 addNew = "yes"
                 var existingData = {date: foundTransaction.date,
-                                    description: foundTransaction.description,
+                                    merchant: foundTransaction.merchant,
                                     amount: foundTransaction.amount,
                                     accountName: foundTransaction.accountName
                                     }
                 updateTransaction(existingData, foundTransaction, addNew, function(err2,foundReg){
                     if (err2){
-                            console.log('error updated user: ',err2);
+                            console.log('error updated user 3: ',err2);
                         }else{
                             console.log('user updated: ',foundReg);
                             }
@@ -234,7 +234,7 @@ function updateTransaction(transData, foundTransaction, addNew, cb){
             regItem.reconciled.id = foundTransaction._id;
             regItem.reconciled.status = foundTransaction.reconciled.status;
             regItem.reconciled.date = foundTransaction.date;
-            regItem.reconciled.description = foundTransaction.description;
+            regItem.reconciled.merchant = foundTransaction.merchant;
             regItem.reconciled.amount = foundTransaction.amount;
             regItem.reconciled.transaction_type = foundTransaction.transaction_type;
             regItem.reconciled.accountName = foundTransaction.accountName;
@@ -272,7 +272,7 @@ function updateTransaction(transData, foundTransaction, addNew, cb){
         }); 
         if (addNew === "yes") {
             var newRegister =   {date: foundTransaction.date,
-                    description: foundTransaction.description,
+                    merchant: foundTransaction.merchant,
                     amount: transData.amount,
                     accountName: foundTransaction.accountName,
                     institution: foundTransaction.institution,
@@ -288,7 +288,7 @@ function updateTransaction(transData, foundTransaction, addNew, cb){
                         newRegister.reconciled.id = foundTransaction._id
                         newRegister.reconciled.status = foundTransaction.reconciled.status
                         newRegister.reconciled.date = foundTransaction.date
-                        newRegister.reconciled.description = foundTransaction.description
+                        newRegister.reconciled.merchant = foundTransaction.merchant
                         newRegister.reconciled.amount = foundTransaction.amount
                         newRegister.reconciled.transaction_type = foundTransaction.transaction_type
                         newRegister.reconciled.accountName = foundTransaction.accountName
