@@ -99,10 +99,10 @@ router.post("/", middleware.isLoggedIn, function(req, res){
       newRegister.reconciled.id = 0,
       newRegister.reconciled.status = "No",
       newRegister.reconciled.date = "" ,
-      newRegister.reconciled.merchant = "",
-      newRegister.reconciled.amount =  0,
-      newRegister.reconciled.transaction_type =  "",
-      newRegister.reconciled.accountName =  "",
+      //newRegister.reconciled.merchant = "",
+      //newRegister.reconciled.amount =  0,
+      //newRegister.reconciled.transaction_type =  "",
+      //newRegister.reconciled.accountName =  "",
       newRegister.save();
       //console.log("ID - " + newRegister.reconciled.id);
       res.redirect("/TransRecon/register/new");

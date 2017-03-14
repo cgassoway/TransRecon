@@ -74,16 +74,27 @@ router.put("/:id", middleware.isLoggedIn, function(req, res){
       console.log("ID is " + req.body.match);
       res.redirect("back");
     } 
-        
+    var addNew = "No";
+
+    console.log("Recon? - " + req.body.reconciled)   ;
+    
     foundTransaction.reconciled.status=req.body.reconciled;
     foundTransaction.save();
-
+    
+    addNew = "yes"
     var existingData = {date: foundTransaction.date,
                         merchant: foundTransaction.merchant,
                         amount: foundTransaction.amount,
-                        accountName: foundTransaction.accountName,
-                      }
-    tools.reconcileTransaction(foundTransaction); 
+                        accountName: foundTransaction.accountName
+                        }
+    tools.updateTransaction(existingData, foundTransaction, addNew, function(err2,foundReg){
+      if (err2){
+        console.log('error updated user 4: ',err2);
+      } else {
+        console.log('user updated: ',foundReg);
+      }
+    });
+
     res.redirect("/TransRecon/match");
   });
 });

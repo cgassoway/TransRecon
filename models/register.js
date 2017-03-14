@@ -14,11 +14,7 @@ var registerSchema = new mongoose.Schema({
                 ref: "Transaction"
             },
             status: String,
-            date: Date,
-            merchant: String,
-            amount: Number,
-            transaction_type: String,
-            accountName: String,
+            date: Date
             },
     created: {type:Date, default: Date.now()},
     updated: {type:Date, default: Date.now()}    
