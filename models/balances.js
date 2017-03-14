@@ -4,15 +4,19 @@ var mongoose = require("mongoose");
 
 
 var balanceSchema = new mongoose.Schema( {
-    fiName: String,
-    accountName: String,
-    accountId: String,
-    accountType: String,
-    currentBalance: Number,
-    dueAmt: Number,
-    dueDate: String,
-    created: {type:Date, default: Date.now()},
-    updated: {type:Date, default: Date.now()}
+  month: String,
+  year: String,
+  fiName: String,
+  accountName: String,
+  accountId: String,
+  accountType: String,
+  currentBalance: Number,
+  startingBalance: Number,
+  endingBalance: Number,
+  dueDate: String,
+  dueAmt: Number,
+  created: {type:Date, default: Date.now()},
+  updated: {type:Date, default: Date.now()}
 });
 
     

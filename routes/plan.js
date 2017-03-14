@@ -18,14 +18,13 @@ var express     = require("express"),
 //INDEX route
 //router.get("/",  middleware.isLoggedIn, function(req, res) {
 router.get("/",  middleware.isLoggedIn, function(req, res) {
-    //console.log("req.params.id - " + req.params.id)
-    Plan.find({}).sort({dayOfMonth: -1}).exec(function(err, allPlans){
-        if (err){
-            console.log(err);
-        } else {
-            res.render("plan", {plans: allPlans});
-        }
-    });
+  Plan.find({}).sort({dayOfMonth: -1}).exec(function(err, allPlans){
+    if (err){
+      console.log(err);
+    } else {
+      res.render("plan", {plans: allPlans});
+    }
+  });
 });
 
 
@@ -36,9 +35,9 @@ router.get("/",  middleware.isLoggedIn, function(req, res) {
 //NEW ROUTE
 //router.get("/new", middleware.isLoggedIn, function(req, res) {
 router.get("/new", middleware.isLoggedIn, function(req, res) {
-    Transactions.find().distinct('accountName', function(error, accts){
-        res.render("plan/new", {accts: accts});
-    });
+  Transactions.find().distinct('accountName', function(error, accts){
+    res.render("plan/new", {accts: accts});
+  });
 });
  /* 
 //NEW  recurring one-time plan item ROUTE
@@ -59,32 +58,37 @@ router.post("/", middleware.isLoggedIn, function(req, res){
                  accountName: req.body.accountName,
                  frequency: req.body.frequency,
                  untilDate: req.body.untilDate,
-                 memo: req.body.memo
+                 memo: req.body.memo,
+                 reconciled: {status: 'No',
+                                  date: new Date(),
+                                  id: 0}
                 }   
-    /*var date = new Date();
-    //var month = date.getMonth();
-    //var year = date.getFullYear();
-    var incr = 1;
-    if (date.getDate() < req.body.dayOfMonth) {
-        incr = 0
-       }
-    var fullDate = new Date(date.getFullYear(), (date.getMonth() + incr), req.body.dayOfMonth)
-    console.log(fullDate)*/
+      // Create new Plan
+  Plan.create(newPlan, function(err, newPlan){
+      if(err) {
+          console.log(err);
+          res.redirect("back")
+          } 
+      });
+  // Create new Register
+  /*
+  var newRegister =   {date: req.body.date,
+                      merchant: req.body.merchant,
+                      amount: req.body.amount,
+                      accountName: req.body.accountName,
+                      memo: req.body.memo,
+                      reconciled: {status: 'No',
+                                  date: new Date(),
+                                  id: 0}
+  } */  
+  // Create new Register
+  tools.addNewRegister(newPlan);
+  res.redirect("/TransRecon/plan/new");
+});
 
-    var newRegister =   {date: req.body.date,
-                        merchant: req.body.merchant,
-                        amount: req.body.amount,
-                        accountName: req.body.accountName,
-                        memo: req.body.memo
-                        }   
-    // Create new Plan
-    Plan.create(newPlan, function(err, newPlan){
-        if(err) {
-            console.log(err);
-            res.redirect("back")
-            } 
-        });
-        // Create new Register
+
+
+/*        
     Register.create(newRegister, function(err, newRegister){
         if(err) {
             console.log(err);
@@ -101,7 +105,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
         res.redirect("/TransRecon/plan/new");
         });
     });
-
+*/
 
 //SHOW route
 //This is the route to show info on one Plan

@@ -23,7 +23,7 @@ module.exports = {
       
       if(regItem === undefined || regItem === null) {
         //console.log('Adding new record')
-        addNewRegister(foundTransaction)
+        tools.addNewRegister(foundTransaction)
       } else {
         //cb('Name exists already',null);
         updateReconStatus(regItem, foundTransaction) 
@@ -44,38 +44,33 @@ module.exports = {
     console.log(year + ' - ' + month + ' - ' + day)
     console.log('returned date - ' + retDate.toString() )
     return retDate;
+  },
+
+//function addNewRegister(foundTransaction) {
+  addNewRegister: function(foundTransaction) {
+  var holdMemo = ' '
+  if(foundTransaction.memo !== undefined && foundTransaction.memo !== null) {
+    holdMemo = foundTransaction.memo
   }
-};
 
-////////
-//  Local Functions
-////////
-
-function updateReconStatus(regItem, foundTransaction){
-  //console.log("Updating register status")
-  //console.log("Status is " + foundTransaction.reconciled.status)
-  regItem.reconciled.id = foundTransaction._id;
-  regItem.reconciled.status = foundTransaction.reconciled.status;
-  regItem.reconciled.date = foundTransaction.reconciled.date;
-  regItem.save();
-}
-
-function addNewRegister(foundTransaction) {
   var newRegister =   {date: foundTransaction.date,
                               amount: foundTransaction.amount,
                               accountName: foundTransaction.accountName,
                               merchant: foundTransaction.merchant,  
-                              memo: " "
-                              } 
+                              memo: holdMemo
+                      } 
       
   Register.create(newRegister, function(err, newRegister){
     if(err) {
       console.log(err);
       res.redirect("back")
     } else{
-      newRegister.reconciled.id = foundTransaction._id;
+      if (foundTransaction.reconciled.status === 'Yes') {
+        newRegister.reconciled.id = foundTransaction._id;
+        newRegister.reconciled.date = foundTransaction.reconciled.date;
+      }
       newRegister.reconciled.status = foundTransaction.reconciled.status;
-      newRegister.reconciled.date = foundTransaction.reconciled.date;
+      
       newRegister.save();
       if(err) {
         console.log(err);
@@ -84,7 +79,19 @@ function addNewRegister(foundTransaction) {
     }
   });
 }
+};
+////////
+//  Local Functions
+////////
 
+function updateReconStatus(regItem, foundTransaction){
+  console.log("Updating register status")
+  //console.log("Status is " + foundTransaction.reconciled.status)
+  regItem.reconciled.id = foundTransaction._id;
+  regItem.reconciled.status = foundTransaction.reconciled.status;
+  regItem.reconciled.date = foundTransaction.reconciled.date;
+  regItem.save();
+}
 // Create new Register
 /*
 function bldNewRegister(foundTransaction) {
