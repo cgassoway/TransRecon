@@ -10,8 +10,12 @@
         
       <form action="/TransRecon/plan/<%=plan._id%>?_method=PUT" method="POST">
           <div class="form-group">
-            <% var date = plan.date.toString();%>
-            <label>Date<input class="form-control" type="text" style="width:31%" name="plan[date]" value="<%=date.substr(4, 3) + " " + date.substr(8, 2) + " " + date.substr(11, 4)%>"></label>
+            <% var currentDate = plan.date %>
+                  <% var day = currentDate.getDate() %>
+                  <% var month = currentDate.getMonth() + 1 %>
+                  <% var year = currentDate.getFullYear() %>
+                  <% var date = month + "/" + day + "/" + year %>
+            <label>Date<input class="form-control" type="text" style="width:31%" name="plan[date]" value="<%= plan.date%>"></label>
           </div>
           <div class="form-group">
             <label>Merchant<input class="form-control" type = "text" name="plan[merchant]"  value="<%=plan.merchant%>"></label>

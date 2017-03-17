@@ -24,7 +24,7 @@
                             <td width="20%" ><%=plan.accountName%></td>
                             <td width="10%" class="rt_aligned"><%=plan.amount.toFixed(2)%></td>
                             <td width="15%">
-                                <form  method="POST" action="/plan/<%=plan._id%>?_method=DELETE">
+                                <form  method="POST" action="/TransRecon/plan/<%=plan._id%>?_method=DELETE">
                                     <button type="submit" class="btn btn-xs btn-danger">Yes, Delete This Item</button>
                                 </form>
                             </td>

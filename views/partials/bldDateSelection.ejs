@@ -1,0 +1,33 @@
+<div class="form-group">
+  <h4>Date Range for Reports</h4>   
+
+  <% var d = new Date(); %>
+  <% var currMonth = d.getMonth() +1; %>
+  <% var currYear = d.getFullYear(); %>
+  <% var startDate = '0' + currMonth + '/01/' + currYear %> 
+  <% var endDate =  '0' + currMonth + '/' + d.getDate() + '/' + currYear %>
+  <% if (currMonth >= 10) {  %>
+    <% startDate = currMonth + '/01/' + currYear %>     
+    <% endDate = currMonth + '/' + d.getDate() + '/' + currYear %>
+    <% }%>
+  <div class="form-group">
+    <p>Start Date: <input type="text" class="form-control" id="fromDate" name="dateFrom" value="<%= startDate %>"></p>
+    
+    <p>Ending Date: <input type="text" class="form-control" id="toDate" name="dateTo" value="<%= endDate %>"></p>
+  </div>
+</div>
+
+ <script type="text/javascript">
+    // When the document is ready
+    $(document).ready(function () {
+  
+      $( function() {
+        $( "#fromDate, #toDate" ).datepicker({
+          format: 'mm-dd-yyyy',
+          //showOn: "both",
+          changeMonth: true,
+          changeYear: true
+        });
+      });
+    });
+  </script>

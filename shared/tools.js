@@ -2,13 +2,11 @@ var express     = require("express"),
     router      = express.Router({mergeParams: true}),
     Register    = require("../models/register"),
     Transactions = require("../models/transaction"),
-    middleware  = require("../middleware");  //index.js is automatically picked up because of it's name
-        
-
+    Balance     = require("../models/balances"),
+    middleware  = require("../middleware");  //index.js is automatically picked up because of it's name  
 
 module.exports = {
 
-  //reconcileTransaction: function(foundTransaction,cb){
   reconcileTransaction: function(foundTransaction){
     var chkDate = foundTransaction.date.toString();
     var chkFromDate = chkDate.substr(0,15);
@@ -22,19 +20,14 @@ module.exports = {
         amount: {$eq: foundTransaction.amount}}).exec(function (err, regItem) {
       
       if(regItem === undefined || regItem === null) {
-        //console.log('Adding new record')
         tools.addNewRegister(foundTransaction)
       } else {
-        //cb('Name exists already',null);
         updateReconStatus(regItem, foundTransaction) 
       }; 
     })
   },
   
-  //date.substr(4, 3) + " " + date.substr(8, 2) + " " + date.substr(11, 4)
-  
-  
-  formatDateyyyymmdd: function(date) {
+/*  formatDateyyyymmdd: function(date) {
     var strDate = date.toString();
     var year = Number(strDate.substr(0, 4));
     var month = Number(strDate.substr(5, 2));
@@ -45,68 +38,145 @@ module.exports = {
     console.log('returned date - ' + retDate.toString() )
     return retDate;
   },
+*/
 
-//function addNewRegister(foundTransaction) {
   addNewRegister: function(foundTransaction) {
-  var holdMemo = ' '
-  if(foundTransaction.memo !== undefined && foundTransaction.memo !== null) {
-    holdMemo = foundTransaction.memo
-  }
+    var holdMemo = ' '
+    if(foundTransaction.memo !== undefined && foundTransaction.memo !== null) {
+      holdMemo = foundTransaction.memo
+    }
 
-  var newRegister =   {date: foundTransaction.date,
-                              amount: foundTransaction.amount,
-                              accountName: foundTransaction.accountName,
-                              merchant: foundTransaction.merchant,  
-                              memo: holdMemo
-                      } 
-      
-  Register.create(newRegister, function(err, newRegister){
-    if(err) {
-      console.log(err);
-      res.redirect("back")
-    } else{
-      if (foundTransaction.reconciled.status === 'Yes') {
-        newRegister.reconciled.id = foundTransaction._id;
-        newRegister.reconciled.date = foundTransaction.reconciled.date;
-      }
-      newRegister.reconciled.status = foundTransaction.reconciled.status;
-      
-      newRegister.save();
+    var newRegister =   {date: foundTransaction.date,
+                                amount: foundTransaction.amount,
+                                accountName: foundTransaction.accountName,
+                                merchant: foundTransaction.merchant,  
+                                memo: holdMemo
+                        } 
+        
+    Register.create(newRegister, function(err, newRegister){
       if(err) {
         console.log(err);
         res.redirect("back")
-      } else {console.log( newRegister.reconciled.id + ' - ' + newRegister.reconciled.status + ' - ' + newRegister.reconciled.date);}      
+      } else{
+        if (foundTransaction.reconciled.status === 'Yes') {
+          newRegister.reconciled.id = foundTransaction._id;
+          newRegister.reconciled.date = foundTransaction.reconciled.date;
+        }
+        newRegister.reconciled.status = foundTransaction.reconciled.status;
+        
+        newRegister.save();
+        if(err) {
+          console.log(err);
+          res.redirect("back")
+        } 
+
+        Transactions.findById(newRegister.reconciled.id, function(err, trans) {
+          if(err) {
+            console.log(err);
+            res.redirect("back")
+          }
+          trans.reconciled.id = newRegister._id;
+          trans.save();
+          if(err) {
+            console.log(err);
+            res.redirect("back")
+          }  
+        });
+      } 
+    })
+  },
+
+  updateBalances: function(updated, item) {
+     updated.currentBalance = item.currentBalance;
+          updated.accountName = item.accountName;
+          updated.fiName = item.fiName;
+          updated.accountType = item.accountType;
+          updated.dueDate = item.dueDate;
+          updated.dueAmt = item.dueAmt;
+          updated.save();
+  },
+
+  addNewBalance: function(item, today, monthNames) {
+    balance = Balance({
+      year: today.getFullYear(),
+      month: monthNames[today.getMonth()],
+      fiName: item.fiName,
+      accountName: item.accountName,
+      accountId: item.accountId,
+      currentBalance: item.currentBalance,
+      startingBalance: item.currentBalance,
+      accountType: item.accountType,
+      dueDate: item.dueDate,
+      dueAmt: item.dueAmt
+      });
+    balance.save(function(err) {
+      if (err) {
+        console.log(err);
+        throw err;
+      }
+    });
+  },
+
+  bldQuery: function(queryParms) {
+    var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    var rptFromDate = monthNames[Number(queryParms.dateFrom.substr(0,2) - 1)] + " " +
+                                        queryParms.dateFrom.substr(3,2) + " " +
+                                        queryParms.dateFrom.substr(6,4);
+    var rptToDate = monthNames[Number(queryParms.dateTo.substr(0,2) - 1)] + " " +
+                                        (Number(queryParms.dateTo.substr(3,2)) +1).toString() + " " +
+                                        queryParms.dateTo.substr(6,4);
+    var rptDate = '{"date": {"$gte": "' + rptFromDate + '", "$lte": "' + rptToDate + '"}';
+    
+    var rptParams = rptDate;
+    var rptCreditDebit = "";
+
+    if (queryParms.credDeb === "Debit") {
+      rptCreditDebit = '"amount": {"$lte": 0}';
+      } 
+    if (queryParms.credDeb === "Credit") {
+      rptCreditDebit = '"amount": {"$gte": 0}';
+      }
+    if (rptCreditDebit != "") {
+      rptParams = rptParams + ", " + rptCreditDebit;
+      }  
+  //Check for if reconciled wanted ot not
+    var repReconciled = "";
+    if (queryParms.reconciled === "Yes" ) {
+      repReconciled = '"reconciled.status": "Yes"';
     }
-  });
-}
+    if (queryParms.reconciled === "No" ) {
+      repReconciled = '"reconciled.status": "No"';
+    }
+    if (repReconciled != "") {
+      rptParams = rptParams + ", " + repReconciled
+    }
+    if (queryParms.merchant != "All") {
+      var repMerchant = '"merchant": "';
+      repMerchant = repMerchant + queryParms.merchant;
+      repMerchant = repMerchant + '"';
+      rptParams = rptParams +  ", " + repMerchant;
+    }
+    if (queryParms.finInst != "All"){
+      var repFinInst = '"institution": "';
+      repFinInst = repFinInst + queryParms.finInst;
+      repFinInst = repFinInst + '"';
+      rptParams = rptParams +  ", " + repFinInst;
+    }
+    rptParams = rptParams + "}"
+      
+    return rptParams;
+  }
 };
+
 ////////
 //  Local Functions
 ////////
 
 function updateReconStatus(regItem, foundTransaction){
-  console.log("Updating register status")
-  //console.log("Status is " + foundTransaction.reconciled.status)
   regItem.reconciled.id = foundTransaction._id;
   regItem.reconciled.status = foundTransaction.reconciled.status;
   regItem.reconciled.date = foundTransaction.reconciled.date;
   regItem.save();
 }
-// Create new Register
-/*
-function bldNewRegister(foundTransaction) {
-  /*var newRegister =   {date: foundTransaction.date,
-              amount: foundTransaction.amount,
-              accountName: foundTransaction.accountName,
-              merchant: foundTransaction.merchant,
-              memo: " "
-              }; 
-  //Register.create(newRegister, function(err, newRegister){
-    Register.create(foundTransaction, function(err, newRegister){
-  if(err) {
-    console.log(err);
-    res.redirect("back")
-  }
-  return newRegister;
-});*/
 

@@ -1,0 +1,41 @@
+  <div class="form-group">
+    <h4>Date Range for Reports</h4>        
+    <p>Date: <input type="text" id="datepicker"><i class="fa fa-calendar"></i></p>
+    <div class="input-group input-daterange form-group">
+      <input type="text" class="form-control" id="dateFrom" name="dateFrom" value="">
+      <label class="input-group-addon btn" for="dateFrom">
+          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+      </label>      
+      <span class="input-group-addon">to</span>
+      <input type="text" class="form-control" id="dateTo" name="dateTo" value="">
+      <label class="input-group-addon btn" for="dateTo">
+          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+      </label>      
+    </div>
+  </div>
+  <div class="form-group">
+    <h4>Financial Institution</h4>
+    <select class="form-control" name="finInst" required>
+      <option value="All" selected="selected">All</option>
+        <% finInst.forEach(function(acct) { %>
+      <option value=<%=acct%>><%=acct%></option>
+        <% }) %>
+    </select>
+  </div>
+  <div class="form-group" style="width:50%; float: left; margin-bottom: 30px;">
+    <h4>Reconciled?</h4>
+    <div class="radio">
+      <label>
+        <input type="radio" id="yes" name="reconciled" value="Yes" />Yes
+      </label>
+      <label>
+        <input type="radio" id="no" name="reconciled" value="No" />No
+      </label>
+      <label>
+        <input type="radio" id="both" name="reconciled" checked="checked" value="Both" />Both
+      </label>
+    </div>                            
+  </div>
+  <div class="form-group" style="margin-top: 10px;">
+    <input type="submit" class="btn btn-primary btn-lg pull-right" value="Create Report">
+  </div>

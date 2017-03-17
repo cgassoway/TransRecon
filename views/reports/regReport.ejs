@@ -2,8 +2,8 @@
 
 <div class="container">
   <div class="row panel panel-default">
-    <div class="panel-body col-md-10 col-xs-10 col-md-offset-1 col-xs-offset-1">
-    <h2>Register Report</h2>
+    <div class="panel-body col-md-12 col-xs-12">
+    <h2><%= rptData %> Report</h2>
     <table id="myTable" class="table table-fixedheader table-bordered table-condensed table-striped table-hover">
       <thead>
         <tr>
@@ -37,14 +37,14 @@
             <% spending = spending + register.amount %>
           <% }; %>
           <td width="12%" ><%=register.reconciled.status%></td>
-          <% if (register.memo) { %>
+          <% if (register.memo > " ") { %>
             <td><%=register.memo%></td>
           <%}%>
           <%})%>
           <td width="60%" style="text-align: right">Total value</td>
           <td width="13%" class="rt_aligned"><%= income.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') %></td>
           <td width="15%" class="rt_aligned"><%= spending.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') %></td>
-          <td width="12%" class="rt_aligned"><%= total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') %></td>
+          <!--<td width="12%" class="rt_aligned"><%//= total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') %></td> -->
         </tr>
       </tbody>
     </table>

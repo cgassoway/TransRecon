@@ -11,10 +11,11 @@
   <div class="container">
     <div class="row">
       <div class="col-md-4 col-xs-4 col-md-offset-4 col-xs-offset-4">
-        <h2 style="text-align: center;">Build Transactions Reports Request</h2>
-        <form action="/TransRecon/reports/transactions" class="form-horizontal" role="form" method="GET">
-          <%  include ../partials/bldDateSelection  %>
-          <%  include ../partials/bldRptForm  %>
+        <h2 style="text-align: center;">Build Register Reports Request</h2>
+        <form action="/TransRecon/reports/register" class="form-horizontal" role="form" method="GET">
+
+        <%  include ../partials/bldRptForm  %>
+  
 
         </form>
       </div>
@@ -25,20 +26,18 @@
     // When the document is ready
     $(document).ready(function () {
         
-                    
       $('#dateFrom').datepicker({
         format: 'mm-dd-yyyy',
         autoclose: true
         });
-
-      //$('#dateFrom').on('change', function() {
-      //   alert($('#dateFrom').val());
-      //});
+     
       
       $('#dateTo').datepicker({
         format: 'mm-dd-yyyy',
         autoclose: true
-        });
+      });
+      
+     
 
       $('.input-daterange input').each(function() {
         $(this).datepicker("clearDates");

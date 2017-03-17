@@ -143,6 +143,12 @@ label {
 table {
     width: 75%;
 }
+tbody {
+    height: 100px;
+}
+.smallTBody {
+    height: 100px;
+}
 .centered {
     text-align: center;
 }
@@ -294,7 +300,7 @@ when a scrollbar is visible and wider when it is not).
 */
  table.table-fixedheader>tbody {
     overflow-y: scroll;
-    height: 100px;
+    /*height: 100px; */
     
 }
 /*

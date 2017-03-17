@@ -68,8 +68,7 @@ fs.readFile(filePathTrans, function (err, data) { // Read the contents of the fi
       "merchant": merchant, 
       "amount": dolAmount,
       "transaction_type": typeTrans}, function(err, numFound) {
-        if (item.category ==="Credit Card Payment")
-          numFound = 1;
+
         if (numFound === 0) {
           //  transaction was not in the database, so add to it
           transaction = Transaction({
@@ -104,25 +103,56 @@ fs.readFile(filePathBal, function (err, data) { // Read the contents of the file
   if (jsonContent) {
     console.log("starting Balances update" );
     jsonContent.forEach( function(item) {
-      if (item.currentBalance != 0) {
+      if (item.currentBalance != 0){
         Balance.findOne({accountId: item.accountId, month: monthNames[today.getMonth()], year: today.getFullYear()}, function(err, updated) {
-          if (err) {
-            console.log("Error updating Balances  " + err);
-            throw err
-          }
-          if (updated != null){
-            tools.updateBalances(updated, item);
-            balUpdated = balUpdated + 1;
+        if (err) {
+          console.log("Error updating Balances  " + err);
+          throw err
+        }
+        if (updated != null){
+          tools.updateBalances(updated, item);
+          /*
+          updated.currentBalance = item.currentBalance;
+          updated.accountName = item.accountName;
+          updated.fiName = item.fiName;
+          updated.accountType = item.accountType;
+          updated.dueDate = item.dueDate;
+          updated.dueAmt = item.dueAmt;
+          updated.save();
+          */
+          balUpdated = balUpdated + 1;
           } else {  
-            tools.addNewBalance(item, today, monthNames);
-            numAdded = numAdded + 1;
-          }
+            tools.addNewBalance(item, today);
+            /*
+            if (updated === null) {     
+              balance = Balance({
+                year: today.getFullYear(),
+                month: monthNames[today.getMonth()],
+                fiName: item.fiName,
+                accountName: item.accountName,
+                accountId: item.accountId,
+                currentBalance: item.currentBalance,
+                startingBalance: item.currentBalance,
+                accountType: item.accountType,
+                dueDate: item.dueDate,
+                dueAmt: item.dueAmt
+                });
+              balance.save(function(err) {
+                if (err) {
+                  console.log(err);
+                  throw err;
+                } else {
+                  numAdded = numAdded + 1;
+                };*/
+              };                    
+            });
+          } 
         });
-      } 
+      };    
+         
     });
-  };         
+  }
 });
-  
 
 Plan.find().exec(function(err, plans) {
     
@@ -137,19 +167,19 @@ Plan.find().exec(function(err, plans) {
 
 function updateRegister(planItem) {
   var today = new Date()
-  var fullDate = new Date(planItem.date.getFullYear(), today.getMonth(), planItem.date.getDate())
+  var fullDate = new Date(planItem.date.getFullYear(), today.getMonth()+2, planItem.date.getDate())
   var newRegister =   {date: fullDate,
               merchant: planItem.merchant,
               amount: planItem.amount,
               accountName: planItem.accountName,
+              institution: planItem.institution,
               memo: planItem.memo,
               reconciled: {status: "No"}
               }   
-  Register.findOne(newRegister).exec(function(err, foundReg) {
-    if(!foundReg) {
+  Register.find(newRegister).exec(function(err, foundReg) {
+    if (!foundReg.length) {
       tools.addNewRegister(newRegister);
-      regCount = regCount+1
-    } 
+    };
   });
 }
 
@@ -221,5 +251,54 @@ setTimeout(function() {
   console.log( "Balance records updated - " + balUpdated);
   console.log("Register records added - " + regCount);
   console.log("Database closed");
-  }, 10000);
+  }, 20000);
 
+/*
+Plan.find().exec(function(err, plans) {
+    
+  var date = new Date();
+  
+  plans.forEach(function(planItem) {
+    var incrMonth = 1,
+        incrYear = 0;
+    //console.log("getDate - " + date.getDate() + "  dayOfMonth is " + planItem.dayOfMonth);
+    if (date.getDate() < planItem.dayOfMonth) {
+      incrMonth = 0;
+      }
+    if (date.getMonth === 12 && incrMonth === 1) {
+      incrYear = 1
+      }
+    //console.log("incrMonth = " + incrMonth)
+    var fullDate = new Date(date.getFullYear() + incrYear, (date.getMonth() + incrMonth), planItem.dayOfMonth)
+    var newRegister =   {date: fullDate,
+                merchant: planItem.merchant,
+                amount: planItem.amount,
+                accountName: planItem.accountName,
+                memo: planItem.memo,
+                reconciled: {status: "No"}
+                }   
+    Register.find(newRegister).exec(function(err, foundReg) {
+      if (!foundReg.length) {
+        Register.create(newRegister, function(err, newReg) {
+        if (err) {
+          console.log("create error for " + planItem.merchant)
+          } else {
+            newReg.reconciled.id = 0,
+            newReg.reconciled.status = "No",
+            newReg.reconciled.date = "" ,
+            newReg.reconciled.merchant = "",
+            newReg.reconciled.amount =  0,
+            newReg.reconciled.transaction_type =  "",
+            newReg.reconciled.dateTo =  "",
+            newReg.save();
+          };
+        })
+      };
+    });
+  });
+});
+
+function getTransMonth(monthName){
+  return new Date(monthName+'-1-01').getMonth()
+}
+*/
