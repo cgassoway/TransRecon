@@ -83,75 +83,65 @@ router.get("/summary",   middleware.isLoggedIn, function(req, res) {
   var summaryCtrs = {
                     fromDate: rptFromDate,
                     toDate: rptToDate,
-                    trans: {
+                    reconciled:{
                             spent: 0,
                             income: 0,
-                            spentReconciled: 0,
-                            incomeReconciled: 0,
-                            count: 0,
-                            countReconciled: 0
+                            count: 0
+                      
                     },
-                    reg: {
-                          committedSpent: 0,
-                          expectedIncome: 0,
-                          spentReconciled: 0,
-                          incomeReconciled: 0,
-                          count: 0,
-                          countReconciled: 0
+                    unreconciled:{
+                            spent: 0,
+                            income: 0,
+                            count: 0
+                      
                     },
+                    committed: {
+                          spent: 0,
+                          income: 0,
+                          count: 0
+                    }
                   };
   Transactions.find(parsedParams).exec(function(err, foundTransactions) {
     if (err) throw err;
     foundTransactions.forEach (function(transData) {
-      summaryCtrs.trans.count++;
       if (transData.amount > 0) {
-        //summaryCtrs.trans.income += transData.amount;
         if (transData.reconciled.status === 'Yes') {
-          summaryCtrs.trans.incomeReconciled += transData.amount
-          summaryCtrs.trans.countReconciled++
-        } else {summaryCtrs.trans.income += transData.amount;}
+          summaryCtrs.reconciled.count++;
+          summaryCtrs.reconciled.income += transData.amount;
+        } else {
+          summaryCtrs.unreconciled.count++;
+          summaryCtrs.unreconciled.income += transData.amount;
+        }
+      } else if (transData.reconciled.status === 'Yes') {
+        summaryCtrs.reconciled.count++;
+        summaryCtrs.reconciled.spent += transData.amount
       } else {
-        //summaryCtrs.trans.spent +=transData.amount;
-        if (transData.reconciled.status === 'Yes') {
-          summaryCtrs.trans.spentReconciled += transData.amount
-          summaryCtrs.trans.countReconciled++
-        } else {summaryCtrs.trans.spent +=transData.amount;}
+        summaryCtrs.unreconciled.count++;
+        summaryCtrs.unreconciled.spent +=transData.amount;
       }
     });
 
-      Register.find(parsedParams).exec(function(err, foundRegister) {
-        if (err) throw err;
-        foundRegister.forEach (function(regData) {
-          console.log("regAmount = " + regData.amount)
-          summaryCtrs.reg.count++
+    Register.find(parsedParams).exec(function(err, foundRegister) {
+      if (err) throw err;
+      foundRegister.forEach (function(regData) {
+        //console.log("regAmount = " + regData.amount)
+        if (regData.reconciled.status !== 'Yes') {
+          summaryCtrs.committed.count++
           if (regData.amount > 0) {
-            //summaryCtrs.reg.expectedIncome += regData.amount;
-            if (regData.reconciled.status === 'Yes') {
-              summaryCtrs.reg.incomeReconciled += regData.amount
-              summaryCtrs.reg.countReconciled++
-            } else {summaryCtrs.reg.expectedIncome +=regData.amount;}
+              summaryCtrs.committed.income += regData.amount
           } else {
-            //summaryCtrs.reg.committedSpent += regData.amount;
-            if (regData.reconciled.status === 'Yes') {
-              summaryCtrs.reg.spentReconciled += regData.amount
-              summaryCtrs.reg.countReconciled++
-            } else {summaryCtrs.reg.committedSpent += regData.amount;}
+              summaryCtrs.committed.spent += regData.amount
           }
-          
-        });
-        console.log("# reg transactions = " + summaryCtrs.reg.count)
-        console.log("regSpent - " +  summaryCtrs.reg.committedSpent + "  regIncome = " + summaryCtrs.reg.expectedIncome)
-        res.render("reports/summaryReport", {summaryCtrs: summaryCtrs});  
+        }
+      });
+      //console.log("# reg transactions = " + summaryCtrs.spending.count)
+      //console.log("regSpent - " +  summaryCtrs.reg.committedSpent + "  regIncome = " + summaryCtrs.reg.expectedIncome)
+      Balances.find({$or: [{accountType: "bank"}, {accountType: "credit"}]}).sort({accountType: 1, accountName: 1}).exec(function(err, allBalances){
+        if (err) throw err;
+      res.render("reports/summaryReport", {summaryCtrs: summaryCtrs, balances: allBalances});  
+      });
     });  
-  
-        
-      //
-      //  Balances go here
-      //
-  
-  
-  });
-  
+  });  
 });
 
 module.exports = router;

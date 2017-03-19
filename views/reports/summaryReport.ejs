@@ -2,51 +2,95 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-10 col-xs-10 col-md-offset-1 col-xs-offset-1">
-    <h2>Reconciliation Summary Reports</h2>
-    <h4>From: <%= summaryCtrs.fromDate%>   To:   <%= summaryCtrs.toDate %> </td> %></h4>
-    <div  >
-      <!--<table style="height: 200px;" class="table table-fixedheader table-bordered table-condensed table-striped table-hover table-responsive">-->
-      <table class="table table-fixedheader table-bordered table-condensed table-striped">
-        <thead>
-        <tr>
-            <th width="15%">    </th>
-            <th  class="centered" width="42%" >Transactions</th>
-            <th  class="centered" width="43%" >Register</th>
-          </tr>
-          <tr>
-            <th width="15%">Type</th>
-            <th class="rt_aligned" width="21%" >Reconciled</th>
-            <th class="rt_aligned" width="21%" >Spent/Deposits</th>
-            <th class="rt_aligned" width="21%" >Reconciled</th>                                                                                   
-            <th class="rt_aligned" width="22%" >Committed/Planned</th>
-          </tr>
-        </thead>
-        <tbody style="height: 100px;" >
-          <% var total = 0 %>
-          <% var income = 0 %>                    
-          <% var spending = 0 %>
-          <tr>
-            <td width="15%">Expenses</td>
-            <td width="21%" class="rt_aligned"><%=summaryCtrs.trans.spentReconciled.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
-            <td width="21%" class="rt_aligned"><%=summaryCtrs.trans.spent.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
-            <td width="21%" class="rt_aligned"><%=summaryCtrs.reg.spentReconciled.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
-            <td width="22%" class="rt_aligned"><%=summaryCtrs.reg.committedSpent.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
-          </tr>
+    <div class="col-md-6 col-xs-6 col-md-offset-3 col-xs-offset-3">
+      <h2>Reconciliation Summary Reports</h2>
+      <h4>From: <%= summaryCtrs.fromDate%>   To:   <%= summaryCtrs.toDate %> </td> %></h4>
+      <div class="table-responsive">
+        <!--<table style="height: 200px;" class="table table-fixedheader table-bordered table-condensed table-striped table-hover table-responsive">-->
+        <table class="table table-bordered table-condensed table-striped summary">
+          <thead>
+            <!--
             <tr>
-            <td width="15%">Income</td>
-            <td width="21%" class="rt_aligned"><%=summaryCtrs.trans.incomeReconciled.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
-            <td width="21%" class="rt_aligned"><%=summaryCtrs.trans.income.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
-            <td width="21%" class="rt_aligned"><%=summaryCtrs.reg.incomeReconciled.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
-            <td width="22%" class="rt_aligned"><%=summaryCtrs.reg.expectedIncome.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div>
-      <a href="/TransRecon/reports/bldTransReports">Go Back</a>
+              <th
+              <th  class="centered" width="34%" >Spending</th>
+              <th  class="centered" width="33%" >Income</th>
+              <th  class="centered" width="33%" >Committed</th> 
+            </tr>  -->
+            <tr>
+              <th class="centered" width="25%"> Type</th>
+              <th class="rt_aligned" width="25%" ><a href="/TransRecon/match/all">Reconciled</a></th>
+              <th class="rt_aligned" width="25%" ><a href="/TransRecon/match">Unreconciled</a></th>
+              <th class="rt_aligned" width="25%" ><a href="/TransRecon/match">Committed</a></th>
+              <!--
+              <th class="rt_aligned" width="16%" >Reconciled</th> 
+              <th class="rt_aligned" width="17%" >Total</th>                                                                                  
+              <th class="rt_aligned" width="16%" >Spending</th>
+              <th class="rt_aligned" width="17%" >Income</th> -->
+            </tr>
+          </thead>
+          <tbody class="tbodySummary">
+            <tr>
+              <td width="25%"> Spending</td>
+              <td width="32%" class="rt_aligned"><%=summaryCtrs.reconciled.spent.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
+              <td width="25%" class="rt_aligned"><%=summaryCtrs.unreconciled.spent.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
+              <td width="25%" class="rt_aligned"><%=summaryCtrs.committed.spent.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
+            </tr>
+            <tr>
+              <td width="25%">Income</td>
+              <td width="25%" class="rt_aligned"><%=summaryCtrs.reconciled.income.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
+              <td width="25%" class="rt_aligned"><%=summaryCtrs.reconciled.income.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
+              <td width="25%" class="rt_aligned"><%=summaryCtrs.committed.income.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
     </div>
   </div>
 </div>
  
+<div class="container centered"
+  <h2>Checkbook and Credit Card Balances</h2>    
+  <h3>Browse balances</h3>
+</div>
+
+   
+<div class="container">
+      
+  <table class="table table-bordered table-condensed table-hover">
+    <thead>
+      <tr>
+        <th>Financial Inst</th>
+        <th>Account</th>
+        <th class="rt_aligned">Starting Balance</th>
+        <th class="rt_aligned">Current Balance</th>
+        <th>Due Date</th>
+        <th>Amount Due</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% balances.forEach(function(balances) {  %>
+        <tr>
+          <td><%=balances.fiName%></td>
+          <td><%=balances.accountName%></td>
+          <td class="rt_aligned"><%=balances.startingBalance.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
+          <td class="rt_aligned"><%=balances.currentBalance.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
+          <% if(balances.accountType === "credit") { %>
+            <td><%=balances.dueDate%></td>
+            <td><%=balances.dueAmt.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
+          <% } %>
+          <!--<td> <a class="btn btn-warning btn-xs" href="/balances/<%=balances._id%>/edit">Edit Balances</a></td>-->
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+
+  <div class="container">
+    <div class=centered>
+      <a class="btn btn-primary" href="/TransRecon/reports/bldSummaryReports">Go Back</a>
+    </div>
+  </div>
+</div> 
+
+
  <% include ../partials/footer %>

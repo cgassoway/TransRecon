@@ -28,6 +28,24 @@ h4    {
    display: none;
 }
 
+table.table.summary {
+    height: 100px;
+} 
+table.table-fixedheader>tbody>tbodySummary {
+    height: 100px;
+}
+.fixed-17{
+    width:17%;
+    position:fixed;
+    height:100%;
+    }
+.fixed-16{
+    width:16%;
+    position:fixed;
+    height:100%;
+    z-index:1;
+}
+
 #dateFrom {
    height: 50px;
 }
@@ -143,9 +161,10 @@ label {
 table {
     width: 75%;
 }
-tbody {
+/*tbody {
     height: 100px;
 }
+*/
 .smallTBody {
     height: 100px;
 }
@@ -300,7 +319,7 @@ when a scrollbar is visible and wider when it is not).
 */
  table.table-fixedheader>tbody {
     overflow-y: scroll;
-    /*height: 100px; */
+    height: 100px;
     
 }
 /*
