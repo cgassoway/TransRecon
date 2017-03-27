@@ -6,3 +6,102 @@ Wed Mar  1 09:49:08 MST 2017
 Wed Mar  1 09:52:53 MST 2017
 Wed Mar  1 20:06:17 MST 2017
 Fri Mar 10 14:56:30 MST 2017
+Traceback (most recent call last):
+  File "/usr/bin/mintapi", line 11, in <module>
+    load_entry_point('mintapi==1.22', 'console_scripts', 'mintapi')()
+  File "/usr/lib/python3.6/site-packages/mintapi/api.py", line 699, in main
+    mint = Mint.create(email, password, ius_session=options.session, thx_guid=options.thx_guid)
+  File "/usr/lib/python3.6/site-packages/mintapi/api.py", line 70, in create
+    mint.login_and_get_token(email, password, ius_session, thx_guid)
+  File "/usr/lib/python3.6/site-packages/mintapi/api.py", line 131, in login_and_get_token
+    session_cookies = self.get_session_cookies(**data)
+  File "/usr/lib/python3.6/site-packages/mintapi/api.py", line 190, in get_session_cookies
+    while not driver.current_url.startswith('https://mint.intuit.com/overview.event'):
+  File "/usr/lib/python3.6/site-packages/selenium/webdriver/remote/webdriver.py", line 491, in current_url
+    return self.execute(Command.GET_CURRENT_URL)['value']
+  File "/usr/lib/python3.6/site-packages/selenium/webdriver/remote/webdriver.py", line 236, in execute
+    self.error_handler.check_response(response)
+  File "/usr/lib/python3.6/site-packages/selenium/webdriver/remote/errorhandler.py", line 192, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.WebDriverException: Message: chrome not reachable
+  (Session info: chrome=56.0.2924.87)
+  (Driver info: chromedriver=2.24,platform=Linux 4.10.3-1-ARCH x86_64)
+
+Exception ignored in: <bound method Service.__del__ of <selenium.webdriver.chrome.service.Service object at 0x7fcad1dbc208>>
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/site-packages/selenium/webdriver/common/service.py", line 173, in __del__
+  File "/usr/lib/python3.6/site-packages/selenium/webdriver/common/service.py", line 149, in stop
+  File "/usr/lib/python3.6/site-packages/selenium/webdriver/common/service.py", line 120, in send_remote_shutdown_command
+ImportError: sys.meta_path is None, Python is likely shutting down
+Traceback (most recent call last):
+  File "/usr/bin/mintapi", line 11, in <module>
+    load_entry_point('mintapi==1.22', 'console_scripts', 'mintapi')()
+  File "/usr/lib/python3.6/site-packages/mintapi/api.py", line 699, in main
+    mint = Mint.create(email, password, ius_session=options.session, thx_guid=options.thx_guid)
+  File "/usr/lib/python3.6/site-packages/mintapi/api.py", line 70, in create
+    mint.login_and_get_token(email, password, ius_session, thx_guid)
+  File "/usr/lib/python3.6/site-packages/mintapi/api.py", line 131, in login_and_get_token
+    session_cookies = self.get_session_cookies(**data)
+  File "/usr/lib/python3.6/site-packages/mintapi/api.py", line 191, in get_session_cookies
+    time.sleep(1)
+KeyboardInterrupt
+Exception ignored in: <bound method Service.__del__ of <selenium.webdriver.chrome.service.Service object at 0x7f733272d278>>
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/site-packages/selenium/webdriver/common/service.py", line 173, in __del__
+  File "/usr/lib/python3.6/site-packages/selenium/webdriver/common/service.py", line 149, in stop
+  File "/usr/lib/python3.6/site-packages/selenium/webdriver/common/service.py", line 120, in send_remote_shutdown_command
+ImportError: sys.meta_path is None, Python is likely shutting down
+Mon Mar 20 19:11:29 MST 2017
+Traceback (most recent call last):
+  File "/usr/bin/mintapi", line 11, in <module>
+    load_entry_point('mintapi==1.22', 'console_scripts', 'mintapi')()
+  File "/usr/lib/python3.6/site-packages/mintapi/api.py", line 699, in main
+    mint = Mint.create(email, password, ius_session=options.session, thx_guid=options.thx_guid)
+  File "/usr/lib/python3.6/site-packages/mintapi/api.py", line 70, in create
+    mint.login_and_get_token(email, password, ius_session, thx_guid)
+  File "/usr/lib/python3.6/site-packages/mintapi/api.py", line 131, in login_and_get_token
+    session_cookies = self.get_session_cookies(**data)
+  File "/usr/lib/python3.6/site-packages/mintapi/api.py", line 173, in get_session_cookies
+    driver = webdriver.Chrome()
+  File "/usr/lib/python3.6/site-packages/selenium/webdriver/chrome/webdriver.py", line 69, in __init__
+    desired_capabilities=desired_capabilities)
+  File "/usr/lib/python3.6/site-packages/selenium/webdriver/remote/webdriver.py", line 92, in __init__
+    self.start_session(desired_capabilities, browser_profile)
+  File "/usr/lib/python3.6/site-packages/selenium/webdriver/remote/webdriver.py", line 179, in start_session
+    response = self.execute(Command.NEW_SESSION, capabilities)
+  File "/usr/lib/python3.6/site-packages/selenium/webdriver/remote/webdriver.py", line 234, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "/usr/lib/python3.6/site-packages/selenium/webdriver/remote/remote_connection.py", line 408, in execute
+    return self._request(command_info[0], url, body=data)
+  File "/usr/lib/python3.6/site-packages/selenium/webdriver/remote/remote_connection.py", line 440, in _request
+    resp = self._conn.getresponse()
+  File "/usr/lib/python3.6/http/client.py", line 1331, in getresponse
+    response.begin()
+  File "/usr/lib/python3.6/http/client.py", line 297, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib/python3.6/http/client.py", line 258, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+  File "/usr/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/usr/bin/mintapi", line 11, in <module>
+    load_entry_point('mintapi==1.22', 'console_scripts', 'mintapi')()
+  File "/usr/lib/python3.6/site-packages/mintapi/api.py", line 699, in main
+    mint = Mint.create(email, password, ius_session=options.session, thx_guid=options.thx_guid)
+  File "/usr/lib/python3.6/site-packages/mintapi/api.py", line 70, in create
+    mint.login_and_get_token(email, password, ius_session, thx_guid)
+  File "/usr/lib/python3.6/site-packages/mintapi/api.py", line 131, in login_and_get_token
+    session_cookies = self.get_session_cookies(**data)
+  File "/usr/lib/python3.6/site-packages/mintapi/api.py", line 191, in get_session_cookies
+    time.sleep(1)
+KeyboardInterrupt
+Exception ignored in: <bound method Service.__del__ of <selenium.webdriver.chrome.service.Service object at 0x7fe901a262e8>>
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/site-packages/selenium/webdriver/common/service.py", line 173, in __del__
+  File "/usr/lib/python3.6/site-packages/selenium/webdriver/common/service.py", line 149, in stop
+  File "/usr/lib/python3.6/site-packages/selenium/webdriver/common/service.py", line 120, in send_remote_shutdown_command
+ImportError: sys.meta_path is None, Python is likely shutting down
+Mon Mar 20 20:18:41 MST 2017
+Mon Mar 20 20:20:22 MST 2017
+Wed Mar 22 09:08:45 MST 2017

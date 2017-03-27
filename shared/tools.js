@@ -14,11 +14,11 @@ module.exports = {
     var strDay = day.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})
     var chkToDate = chkFromDate.substr(0,8) + strDay + chkFromDate.substr(10,15);
   
-    Register.findOne({merchant: foundTransaction.merchant,
-        date: {$gte : chkFromDate, $lt: chkToDate}, 
-        accountName:foundTransaction.accountName,
-        amount: {$eq: foundTransaction.amount}}).exec(function (err, regItem) {
-      
+    //Register.findOne({merchant: foundTransaction.merchant,
+    //    date: {$gte : chkFromDate, $lt: chkToDate}, 
+    //    accountName:foundTransaction.accountName,
+    //    amount: {$eq: foundTransaction.amount}}).exec(function (err, regItem) {
+    Register.findById(foundTransaction.reconciled.id,  function (err, regItem) {
       if(regItem === undefined || regItem === null) {
         tools.addNewRegister(foundTransaction)
       } else {
@@ -50,7 +50,10 @@ module.exports = {
                                 amount: foundTransaction.amount,
                                 accountName: foundTransaction.accountName,
                                 merchant: foundTransaction.merchant,  
-                                memo: holdMemo
+                                memo: holdMemo,
+                                reconciled: {id: 0},
+                                reconciled: {date: foundTransaction.date},
+                                reconciled: {status: "No"}
                         } 
         
     Register.create(newRegister, function(err, newRegister){
@@ -75,12 +78,14 @@ module.exports = {
             console.log(err);
             res.redirect("back")
           }
+          if (trans) {
           trans.reconciled.id = newRegister._id;
           trans.save();
           if(err) {
             console.log(err);
             res.redirect("back")
           }  
+        }
         });
       } 
     })
