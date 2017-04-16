@@ -20,22 +20,27 @@
 <table class="table table-bordered table-condensed table-hover">-->
                 <thead>
                     <tr>
-                        <th width="15%" id="tbldate">Day of Month</th>
-                        <th width="30%" >Merchant</th>
-                        <th width="30%" >Account</th>
+                        <th width="10%" id="tbldate">Day of Month</th>
+                        <th width="20%" >Merchant</th>
+                        <th width="20%" >Account</th>
+                        <th width="15%" >Frequency</th>
+                        <th width="10%" >Until Date</th>
                         <th class="rt_aligned" width="10%" >Amount</th>
                     </tr>
                 </thead>
                 <tbody  style="height:375px">
                     <% plans.forEach(function(plan) {  %>
                     <% var date = plan.date.toString();%>
+                    <% var until_date = plan.until_date.toString();%>
                         <tr>
-                            <td width="15%"><%=date.substr(4, 3) + " " + date.substr(8, 2) + " " + date.substr(11, 4)%></td>
-                            <td width="30%" ><%=plan.merchant%></td>
-                            <td width="30%" ><%=plan.accountName.replace(/_/g, ' ')%></td>
-                            <td width="10%" class="rt_aligned"><%=plan.amount.toFixed(2)%></td>
-                            <td width="7%" > <a class="btn btn-warning btn-xs pull-right" href="/TransRecon/plan/<%=plan._id%>/edit">Edit</a></td>
-                            <td width="8%"> <a class="btn btn-xs btn-danger pull-right" href="/TransRecon/plan/<%=plan._id%>/delete">Delete</a></td>
+                            <td width="10%"><%=date.substr(4, 3) + " " + date.substr(8, 2) + " " + date.substr(11, 4)%></td>
+                            <td width="20%" ><%=plan.merchant%></td>
+                            <td width="20%" ><%=plan.account_name.replace(/_/g, ' ')%></td>
+                            <td width="15%" ><%=plan.frequency%></td>
+                            <td width="10%" ><%=until_date.substr(4, 3) + " " + until_date.substr(8, 2) + " " + until_date.substr(11, 4)%></td>
+                            <td width="10%" class="rt_aligned"><%=plan.amount %></td>
+                            <td width="7%" > <a class="btn btn-warning btn-xs pull-right" href="/TransRecon/plan/<%=plan.id%>/edit">Edit</a></td>
+                            <td width="8%"> <a class="btn btn-xs btn-danger pull-right" href="/TransRecon/plan/<%=plan.id%>/delete">Delete</a></td>
                             <!--    <form id="deleteForm" class="pull-right" href="/plan/<%=plan._id%>">
                                 <button class="btn btn-xs btn-danger pull-right" href="/plan/<%=plan._id%>/delete">Delete</button>
                                 </form>-->

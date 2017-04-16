@@ -1,52 +1,51 @@
 <% include ../partials/header %>
- 
-    <div class="container centered" id="balances">
-        <% console.log("report is - " + report); %>
-        
-        <% if (report === "bank") { %>   
-            <h2>Checkbook and Credit Card Balances</h2>    
-        <% } else { %>
-            <% if (report === "invest") { %>
-                <h2>Investment Account Balances</h2>
-                <% } else { %>
-                    <h2>All Account Balances</h2>
-                <% } %>
-            <% } %>
-        <h3>Browse balances</h3>
-    </div>
-
+<div class="panel panel-default">
+  <div class="panel  col-md-10 col-xs-10 col-md-offset-1 col-xs-offset-1"> 
+    <div class="container" >
+      <% if (report === "bank") { %>   
+          <h2>Checkbook and Credit Card Balances</h2>    
+      <% } else { %>
+          <% if (report === "invest") { %>
+              <h2>Investment Account Balances</h2>
+              <% } else { %>
+                  <h2>All Account Balances</h2>
+              <% } %>
+          <% } %>
+      <h3>Browse balances</h3>
    
-  <div class="container" id="balances">
-        
-    <table class="table table-bordered table-condensed table-hover">
+      <table class="table table-bordered table-condensed table-hover">
         <thead>
-            <tr>
-                <th>Financial Inst</th>
-                <th>Account</th>
-                <th>Account Number</th>
-                <th class="rt_aligned">Current Balance</th>
-                <% if(report === "bank") { %>
-                    <th>Due Date</th>
-                    <th>Amount Due</th>
-                <% } %>
-             </tr>
+          <tr>
+            <th>Financial Inst</th>
+            <th>Account</th>
+            <th>Account Number</th>
+            <th class="rt_aligned">Starting Balance</th>
+            <th class="rt_aligned">Current Balance</th>
+            <% if(report === "bank" || report === 'all') { %>
+                <th>Due Date</th>
+                <th>Amount Due</th>
+            <% } %>
+            </tr>
         </thead>
         <tbody>
-            <% balances.forEach(function(balances) {  %>
-                <tr>
-                    <td><%=balances.fiName%></td>
-                    <td><%=balances.accountName%></td>
-                    <td><%=balances.accountId%></td>
-                    <td class="rt_aligned"><%=balances.currentBalance.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
-                    <% if(balances.accountType === "credit") { %>
-                    <td><%=balances.dueDate%></td>
-                    <td><%=balances.dueAmt.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
-                <% } %>
-                    <!--<td> <a class="btn btn-warning btn-xs" href="/balances/<%=balances._id%>/edit">Edit Balances</a></td>-->
-                </tr>
-            <% }); %>
+          <% balances.forEach(function(balances) {  %>
+            <tr>
+              <td><%=balances.institution%></td>
+              <td><%=balances.account_name%></td>
+              <td><%=balances.account_id%></td>
+              <td class="rt_aligned"><%=Number(balances.starting_balance).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
+              <td class="rt_aligned"><%=Number(balances.current_balance).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
+              <% if(balances.account_type === "credit") { %>
+                <td><%=balances.due_date%></td>
+                <td><%=Number(balances.due_amt).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
+              <% } %>
+                <!--<td> <a class="btn btn-warning btn-xs" href="/balances/<%=balances._id%>/edit">Edit Balances</a></td>-->
+            </tr>
+          <% }); %>
         </tbody>
-    </table>
+      </table>
+    </div>
   </div>
+</div>
  
  <% include ../partials/footer %>

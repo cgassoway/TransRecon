@@ -16,20 +16,20 @@
                         <th width="15%" >Are you sure?</th>
                     </tr>
                 </thead>
+                <% var date = plan[0].date.toString();%>
                 <!--<tbody  style="height: 100px">-->
                 <tbody style="height: 50px">
                         <tr height="15px">
-                            <td width="15%"><%=plan.dayOfMonth%></td>
-                            <td width="20%" ><%=plan.merchant%></td>
-                            <td width="20%" ><%=plan.accountName%></td>
-                            <td width="10%" class="rt_aligned"><%=plan.amount.toFixed(2)%></td>
+                            <td width="15%"><%= date.substr(4, 3) + " " + date.substr(8, 2) + " " + date.substr(11, 4) %></td>                            <td width="20%" ><%=plan[0].merchant%></td>
+                            <td width="20%" ><%= plan[0].account_name%></td>
+                            <td width="10%" class="rt_aligned"><%=Number(plan[0].amount).toFixed(2)%></td>
                             <td width="15%">
-                                <form  method="POST" action="/TransRecon/plan/<%=plan._id%>?_method=DELETE">
+                                <form  method="POST" action="/TransRecon/plan/<%=plan[0].id%>?_method=DELETE">
                                     <button type="submit" class="btn btn-xs btn-danger">Yes, Delete This Item</button>
                                 </form>
                             </td>
                             <% if (plan.memo) { %>
-                                <td><%=plan.memo%></td>
+                                <td><%=plan[0].memo%></td>
                             <%}%>
                             
                         </tr>

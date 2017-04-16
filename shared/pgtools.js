@@ -5,7 +5,7 @@ let pool = new pg.Pool(signon);
     
 module.exports = {
 
-  runQuery: function(query, args, callback) {
+runQuery: function(query, args, callback) {
     pool.connect((err, client, done) => {
       if (err) {
         //likely a connection error that will print to console.
@@ -15,11 +15,20 @@ module.exports = {
       } 
       client.query(query, args, (err, result) => {
         done();
-        callback(err, result);
+        var resultsArray = [];
+        var i = 0;
+        if (result && result.rowCount > 0) {
+          for (i=0; i< result.rowCount; i++)  {
+            //console.log("date - " + result.rows[i].account_name)
+            resultsArray.push(result.rows[i]);
+          };
+        }
+        callback(err, resultsArray);
       });
     });
-  },
-
+  }
+}
+/*
   updateBalances: function(updated, item) {
      updated.currentBalance = item.currentBalance;
           updated.accountName = item.accountName;
@@ -97,3 +106,4 @@ module.exports = {
     });
   }
 }
+*/

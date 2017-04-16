@@ -1,6 +1,6 @@
 //ALL MIDDLEWARE GOES HERE
-var Transaction = require("../models/transaction");
-var Register = require("../models/register");
+//var Transaction = require("../models/transaction");
+//var Register = require("../models/register");
 var flash = require("connect-flash");
 var middlewareObject = {};
 

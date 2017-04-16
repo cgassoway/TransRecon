@@ -1,14 +1,19 @@
+console.log('Got to top');
+
 var express     = require("express"),
     app         = express(),
     bodyParser  = require("body-parser"),
-    mongoose    = require("mongoose"),
+    cookieParser = require("cookie-parser"),
+    session      = require('express-session'),
+    //mongoose    = require("mongoose"),
     passport    = require("passport"),
-    LocalStrategy = require("passport-local"),
+    //LocalStrategy = require("passport-local"),
     methodOverride = require("method-override"),
     flash       = require("connect-flash"),
     config      = require("config"),
+    signon = config.get('config');
     //moment      = require("moment"),
-    //expressValidator   = require("express-validator"),
+    //expressValidator   = require("express-validator"),passport
     Validator   = require("validator"),
     Transactions  = require("./models/transaction"),
     Register     = require("./models/register"),
@@ -16,7 +21,7 @@ var express     = require("express"),
     Balances     = require("./models/balances"),
     User        = require("./models/user")
 
-    
+console.log('Got thru first var') 
     //seedDB      = require("./seeds")
     
 //requring routes
@@ -28,21 +33,25 @@ var transactionRoutes   = require("./routes/transaction"),
     matchRoutes         = require("./routes/match"),
     reportsRoutes       = require("./routes/reports")
 
-console.log(config.get('database'));
-//var url= process.env.DATABASEURL || "mongodb://localhost/fininfo";
-//var url= process.env.DATABASEURL || "mongodb://localhost/TestDB";
-var url= config.get('database') || "mongodb://localhost/TestDB";
-console.log(url);
-mongoose.connect(url);
-app.use(bodyParser.urlencoded({extended: true}));
-//app.use(expressValidator);  //required for Express-Validator
+/*
+var pool = new pg.Pool(signon)
+if (!pool) {
+  console.log("Login Problem")
+}
+*/
+
+console.log('Got to passport require')    
+require('./config/passport')(passport); // pass passport for configuration
+
+app.use(bodyParser());
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.set('views', __dirname + "/views");
 app.use(methodOverride("_method"));
 app.use(flash());
+app.use(cookieParser());
 
-
+console.log('got here 1')
 //Comment out for testing
 //seedDB();
 // PASSPORT CONFIGURATION
@@ -53,9 +62,9 @@ app.use(require("express-session")({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+//passport.use(new LocalStrategy(User.authenticate()));
+//passport.serializeUser(User.serializeUser());
+//passport.deserializeUser(User.deserializeUser());
 
 app.use(function(req, res, next){
    res.locals.currentUser = req.user;
