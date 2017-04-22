@@ -1,61 +1,45 @@
 <% include ../partials/header %>
-<!--
-<div class="container centered" id="plan">
-    <h2>Checkbook and Credit Card Plan Items</h2>
-    <h3>Browse plan items</h3>
-</div>
-</header>-->
 
 <div class="container">
-    <div class="row panel panel-default">
-        <!--<div class="panel-body col-md-10 col-xs-10 col-md-offset-1 col-xs-offset-1">-->
-        <div class="panel-body col-md-10 col-xs-10 col-md-offset-1 col-xs-offset-1">
-        <h2 style="text-align: center;">Browse Plan Items</h2>
-     <!--<table class="table table-bordered table-condensed table-hover">-->
-            <table id="myTable" class="table table-fixedheader table-bordered table-condensed table-striped table-hover">
-        
-    <!--<table class="table table-bordered table-condensed table-hover">-->
-<!--<div class="container">
-      
-<table class="table table-bordered table-condensed table-hover">-->
-                <thead>
-                    <tr>
-                        <th width="10%" id="tbldate">Day of Month</th>
-                        <th width="20%" >Merchant</th>
-                        <th width="20%" >Account</th>
-                        <th width="15%" >Frequency</th>
-                        <th width="10%" >Until Date</th>
-                        <th class="rt_aligned" width="10%" >Amount</th>
-                    </tr>
-                </thead>
-                <tbody  style="height:375px">
-                    <% plans.forEach(function(plan) {  %>
-                    <% var date = plan.date.toString();%>
-                    <% var until_date = plan.until_date.toString();%>
-                        <tr>
-                            <td width="10%"><%=date.substr(4, 3) + " " + date.substr(8, 2) + " " + date.substr(11, 4)%></td>
-                            <td width="20%" ><%=plan.merchant%></td>
-                            <td width="20%" ><%=plan.account_name.replace(/_/g, ' ')%></td>
-                            <td width="15%" ><%=plan.frequency%></td>
-                            <td width="10%" ><%=until_date.substr(4, 3) + " " + until_date.substr(8, 2) + " " + until_date.substr(11, 4)%></td>
-                            <td width="10%" class="rt_aligned"><%=plan.amount %></td>
-                            <td width="7%" > <a class="btn btn-warning btn-xs pull-right" href="/TransRecon/plan/<%=plan.id%>/edit">Edit</a></td>
-                            <td width="8%"> <a class="btn btn-xs btn-danger pull-right" href="/TransRecon/plan/<%=plan.id%>/delete">Delete</a></td>
-                            <!--    <form id="deleteForm" class="pull-right" href="/plan/<%=plan._id%>">
-                                <button class="btn btn-xs btn-danger pull-right" href="/plan/<%=plan._id%>/delete">Delete</button>
-                                </form>-->
-                            </td>
-                            <% if (plan.memo) { %>
-                                <td width="85%" class="rt_aligned"><%=plan.memo%></td>
-                            <%}%>
-                        </tr>
-                    <%});%>
-                </tbody>
-            </table>
-            <a class="btn btn-success btn-md floatRight" href="/TransRecon/plan/new">Add new plan item</a>     
-            
+  <div class="row panel panel-default">
+    <div class="panel-body col-md-10 col-xs-10 col-md-offset-1 col-xs-offset-1">
+      <h2 style="text-align: center;">Browse Plan Items</h2>
+      <table id="myTable" class="table table-fixedheader table-bordered table-condensed table-striped table-hover">
+        <thead>
+          <tr>
+            <th width="10%" id="tbldate">Day of Month</th>
+            <th width="20%" >Merchant</th>
+            <th width="20%" >Account</th>
+            <th width="15%" >Frequency</th>
+            <th width="10%" >Until Date</th>
+            <th class="rt_aligned" width="10%" >Amount</th>
+          </tr>
+        </thead>
+        <tbody  style="height:375px">
+          <% plans.forEach(function(plan) {  %>
+            <tr>
+              <td width="10%" ><%=plan.date%></td>
+              <td width="20%" ><%=plan.merchant%></td>
+              <td width="20%" ><%=plan.account_name.replace(/_/g, ' ')%></td>
+              <td width="15%" ><%=plan.frequency%></td>
+              <td width="10%" ><%=plan.until_date%></td>
+              <td width="10%" class="rt_aligned"><%=plan.amount %></td>
+              <td width="7%" > <a class="btn btn-warning btn-xs pull-right" href="/TransRecon/plan/<%=plan.id%>/edit">Edit</a></td>
+              <td width="8%"> <a class="btn btn-xs btn-danger pull-right" href="/TransRecon/plan/<%=plan.id%>/delete">Delete</a></td>
+              <!--    <form id="deleteForm" class="pull-right" href="/plan/<%=plan._id%>">
+                  <button class="btn btn-xs btn-danger pull-right" href="/plan/<%=plan._id%>/delete">Delete</button>
+                  </form>-->
+              </td>
+              <% if (plan.memo) { %>
+                  <td width="85%" class="rt_aligned"><%=plan.memo%></td>
+              <%}%>
+            </tr>
+          <%});%>
+        </tbody>
+      </table>
+      <a class="btn btn-success btn-md floatRight" href="/TransRecon/plan/new">Add new plan item</a>     
     </div>
- 
-</div>
+  </div>
+ </div>
  
  <% include ../partials/footer %>

@@ -13,15 +13,9 @@ var express     = require("express"),
 //================================================
 //
 //INDEX route
-//router.get("/",  middleware.isLoggedIn, function(req, res) {
 router.get("/",  middleware.isLoggedIn, function(req, res) {
-  //var args = ["bank", "credit"];
   var text = 'SELECT * FROM plans ORDER BY date ASC';
   tools.runQuery(text, [], (err, allPlans) => {
-  //Plan.find({}).sort({dayOfMonth: -1}).exec(function(err, allPlans){
-    //if (err){
-      //console.log(err);
-    //} else {
     res.render("plan", {plans: allPlans});
     })
   });
@@ -46,7 +40,6 @@ router.get("/new", middleware.isLoggedIn, function(req, res) {
 //CREATE ROUTE
 
 router.post("/", middleware.isLoggedIn, function(req, res){
-
   var text = 'INSERT INTO plans (date, merchant, amount, account_name, frequency, until_date, memo)' +
                               'VALUES ($1, $2, $3, $4, $5, $6, $7)'
   var values = [req.body.date, req.body.merchant, req.body.amount, req.body.account_name, req.body.frequency,
@@ -67,21 +60,14 @@ router.post("/", middleware.isLoggedIn, function(req, res){
 router.get("/:id/edit", middleware.isLoggedIn, function(req, res) {
   //var text = 'SELECT * FROM plans WHERE id = $1;' 
   var text = 'SELECT * FROM plans WHERE id = ' + req.params.id  + ';'
-  //console.log("Id is - " + req.params.id)
-  //console.log("Query - " + text)
   var args = [req.params.id]
   tools.runQuery(text, [], (err, foundPlan) => {
-    //console.log("plan rowCount = " + foundPlan[0].merchant)
-    //Plan.findById(req.params.id, function(err, foundPlan){
     if (err) {
         console.log(err);
         res.redirect("back");
     } else {
-      //console.log(foundPlan[0].date)
-      //res.render("plan/edit", {id: req.params.id, plan: foundPlan});
       var text = 'SELECT DISTINCT account_name FROM transactions ORDER BY  account_name';
       tools.runQuery(text, [], (err, accts) => {
-      //Transactions.find().distinct('accountName', function(error, accts){
         res.render("plan/edit", {plan: foundPlan, accts:accts });
       })
     }

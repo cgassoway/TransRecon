@@ -1,15 +1,12 @@
 <%  include ../partials/header  %>
 
-
 <div class="container">
   <div class="row">
-    <div class="col-md-4 col-xs-4 col-md-offset-4 col-xs-offset-4">
+    <div class=" col-md-4 col-xs-4 col-md-offset-4 col-xs-offset-4">
       <h1>Edit Plan Item</h1>
       <form action="/TransRecon/plan/<%=plan[0].id%>?_method=PUT" method="POST">
-        <% var date = plan[0].date.toString();%>
-        <div class="form-group">
-          <label>Date<input class="form-control" style="width:40%" type="text" name="date" value="<%= date.toString().substr(4, 3) + " " + date.toString().substr(8, 2) + " " + date.toString().substr(11, 4) %>" placeholder="MMM DD YYYY"></label>
-        </div>
+          <!--<label>Date<input class="form-control" style="width:40%" type="text" name="date" value="<%//= date.toString().substr(4, 3) + " " + date.toString().substr(8, 2) + " " + date.toString().substr(11, 4) %>" placeholder="MMM DD YYYY"></label>-->
+          <label>Date<input class="form-control" style="width:40%" type="text" name="date" value="<%= plan[0].date %>" placeholder="MMM DD YYYY"></label>
         <div class="form-group">
           <label>Merchant<input class="form-control" type = "text" name="merchant"  value="<%=plan[0].merchant%>"></label>
         </div>
@@ -49,9 +46,8 @@
             </select>
           </label>
         </div>
-        <% var until_date = plan[0].until_date.toString();%>
         <div class="form-group">
-          <label>Until Date<input class="form-control" style="width:40%" type="text" name="until_date" value="<%= until_date.toString().substr(4, 3) + " " + until_date.toString().substr(8, 2) + " " + until_date.toString().substr(11, 4) %>" placeholder="MMM DD YYYY"></label>
+          <label>Until Date<input class="form-control" style="width:40%" type="text" name="until_date" value="<%= plan[0].until_date %>" placeholder="MMM DD YYYY"></label>
         </div>
         <div class="form-group">
           <label>Memo<input class="form-control" type="text" name="memo"  value="<%=plan[0].memo%>"></label>
@@ -64,7 +60,5 @@
     </div>
   </div>
 </div>
-
-
 
 <%  include ../partials/footer  %>
