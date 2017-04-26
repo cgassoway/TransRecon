@@ -20,9 +20,9 @@
           </thead>
           <tbody class="resize">
               <% transactions.forEach(function(transaction) {  %>
-                <% var date = transaction.date.toString();%>
+                
                 <tr>
-                  <td width="10%" ><%=date.substr(4, 3) + " " + date.substr(8, 2) + " " + date.substr(11, 4)%></td>
+                  <td width="10%" ><%=transaction.date%></td>
                   <td width="25%" ><%=transaction.merchant%></td>
                   <td width="25%" ><%=transaction.account_name.replace(/_/g, ' ')%></td>
                   <td width="20%" ><%=transaction.institution.replace(/_/g, ' ')%></td>

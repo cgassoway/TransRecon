@@ -1,6 +1,7 @@
 var pg          = require("pg")
 var config      = require('config')
-var signon = config.get('config');
+var signon      = config.get('config');
+const _         = require('underscore');
 let pool = new pg.Pool(signon);
     
 module.exports = {
@@ -19,14 +20,66 @@ runQuery: function(query, args, callback) {
         var i = 0;
         if (result && result.rowCount > 0) {
           for (i=0; i< result.rowCount; i++)  {
-            //console.log("date - " + result.rows[i].account_name)
+            if (typeof result.rows[i] != "undefined" && result.rows[i].date) {
+              var currentDate = result.rows[i].date
+              var day = currentDate.getDate()
+              var month = currentDate.getMonth() + 1
+              var year = currentDate.getFullYear()
+              result.rows[i].date = month + "/" + day + "/" + year
+              console.log(result.rows[i].date)
+            }
+            if (typeof result.rows[i] != "undefined" && result.rows[i].until_date) {
+              currentDate = result.rows[i].until_date
+              day = currentDate.getDate()
+              month = currentDate.getMonth() + 1
+              year = currentDate.getFullYear()
+              result.rows[i].until_date = month + "/" + day + "/" + year
+            } 
+            if (typeof result.rows[i] != "undefined" && result.rows[i].due_date) {
+              console.log("before - " + result.rows[i].due_date)
+              currentDate = result.rows[i].due_date
+              day = currentDate.getDate()
+              month = currentDate.getMonth() + 1
+              year = currentDate.getFullYear()
+              result.rows[i].due_date = month + "/" + day + "/" + year
+              console.log("after - " + result.rows[i].due_date)
+            }
             resultsArray.push(result.rows[i]);
           };
-        }
         callback(err, resultsArray);
+        }
       });
-    });
-  }
+    })
+  },
+  //},
+
+
+///////
+//  Local Functions
+////////
+
+format_date: function(data_in) {
+  var i = 0;
+        if (data_in.rowCount > 0) {
+          for (i=0; i< data_in.rowCount; i++)  {
+            //console.log("date - " + result.rows[i].account_name)
+            var currentDate = date_in[i].date
+            var day = currentDate.getDate()
+            var month = currentDate.getMonth() + 1
+            var year = currentDate.getFullYear()
+            date_in[i].date = month + "/" + day + "/" + year
+            if (date_in[i].until_date) {
+              currentDate = date_in[i].until_date
+              day = currentDate.getDate()
+              month = currentDate.getMonth() + 1
+              year = currentDate.getFullYear()
+              date_in[i].until_date = month + "/" + day + "/" + year
+            }
+          };
+        }
+
+  return date
+}
 }
 /*
   updateBalances: function(updated, item) {
