@@ -1,9 +1,9 @@
 var express         = require("express"),
     router          = express.Router({mergeParams: true}),
-    Transactions    = require("../models/transaction"),
-    Register        = require("../models/register"),
-    Balances        = require("../models/balances")
-    tools           = require("../shared/tools")
+    //Transactions    = require("../models/transaction"),
+    //Register        = require("../models/register"),
+    //Balances        = require("../models/balances")
+    tools           = require("../shared/pgtools")
     middleware      = require("../middleware");  //index.js is automatically picked up because of it's name
 //================================================
 //Report ROUTES
@@ -14,25 +14,29 @@ var express         = require("express"),
 
 router.get("/",   middleware.isLoggedIn, function(req, res) {
   //console.log("All query strings: " + JSON.stringify(req.query.dateFrom));
-  Transactions.find().distinct('institution', function(error, finInst){
+  var text = 'SELECT DISTINCT institution FROM transactions ORDER BY institution';
+  tools.runQuery(text, [], (err, finInst) => {
     res.render("reports/bldreports", {finInst: finInst});
-    });
+  });
 });
 
 // Display Reports
 router.get("/bldRegReports",   middleware.isLoggedIn, function(req, res) {
-  Transactions.find().distinct('institution', function(error, finInst){
+  var text = 'SELECT DISTINCT institution FROM registers ORDER BY institution';
+  tools.runQuery(text, [], (err, finInst) => {
     res.render("reports/bldRegReports", {finInst: finInst});
-    });
+  });
 });
   
 router.get("/bldTransReports",   middleware.isLoggedIn, function(req, res) {
-  Transactions.find().distinct('institution', function(error, finInst){
+  var text = 'SELECT DISTINCT institution FROM transactions ORDER BY institution';
+  tools.runQuery(text, [], (err, finInst) => {
     res.render("reports/bldTransReports", {finInst: finInst});
-    });
+  });
 });
 router.get("/bldSummaryReports",   middleware.isLoggedIn, function(req, res) {
-  Transactions.find().distinct('institution', function(error, finInst){
+  var text = 'SELECT DISTINCT institution FROM transactions ORDER BY institution';
+  tools.runQuery(text, [], (err, finInst) => {
     res.render("reports/bldSummaryReports");
     });
 });
@@ -43,11 +47,10 @@ router.get("/bldSummaryReports",   middleware.isLoggedIn, function(req, res) {
 router.get("/register",   middleware.isLoggedIn, function(req, res) {
   var queryParams = req.query;
   //Format params in query to the form to build JSON format query string
-  var rptParams = tools.bldQuery(queryParams)
-  //Convert to JSON object
-  var parsedParams = JSON.parse(rptParams); 
+  var rptParams = tools.bldQuery(queryParams, 'registers')
+  console.log(rptParams)
   //Get selected documents and render the query
-  Register.find(parsedParams).sort({"date": -1, "accountName": 1 }).exec(function(err, foundRegister) {
+  tools.runQuery(rptParams, [], (err, foundRegister) => {
     if (err) throw err;
     res.render("reports/regReport", {registers: foundRegister, rptData: "Register"});
   }); 
@@ -56,11 +59,10 @@ router.get("/register",   middleware.isLoggedIn, function(req, res) {
 router.get("/transactions",   middleware.isLoggedIn, function(req, res) {
   var queryParams = req.query;
   //Format params in query to the form to build JSON format query string
-  var rptParams = tools.bldQuery(queryParams)
-  //Convert to JSON object
-  var parsedParams = JSON.parse(rptParams); 
+  var rptParams = tools.bldQuery(queryParams, 'transactions')
+  console.log(rptParams)
   //Get selected documents and render the query
-  Transactions.find(parsedParams).sort({"date": -1, "accountName": 1 }).exec(function(err, foundRegister) {
+  tools.runQuery(rptParams, [], (err, foundRegister) => {
     if (err) throw err;
     res.render("reports/regReport", {registers: foundRegister, rptData: "Transaction"});
   }); 

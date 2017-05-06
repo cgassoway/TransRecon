@@ -8,7 +8,7 @@
     <select class="form-control" name="finInst" required>
       <option value="All" selected="selected">All</option>
         <% finInst.forEach(function(acct) { %>
-      <option value=<%=acct%>><%=acct%></option>
+      <option value=<%=acct.institution%>><%=acct.institution%></option>
         <% }) %>
     </select>
   </div>

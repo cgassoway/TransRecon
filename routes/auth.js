@@ -1,7 +1,6 @@
 var express     = require("express"),
     router      = express.Router(),
     passport    = require("passport"),
-
     User        = require("../models/user");
     
 
@@ -22,8 +21,8 @@ router.get("/signup", function(req, res){
 // Login form
 //===================
 router.get("/login", function(req, res){
-    //res.render("login");
-    res.render('login', { message: req.flash('loginMessage') })
+  //res.render("login");
+  res.render('login', { message: req.flash('success', 'Welcome to TransRecon') })
 });
 
 //===================
@@ -31,13 +30,14 @@ router.get("/login", function(req, res){
 //===================
 
 router.post("/login", passport.authenticate("local-login", {
-    successRedirect: "/TransRecon/transactions",
-    failureRedirect: "/TransRecon/login",
-    failureFlash : true // allow flash messages
-		}));
-
-    //}), function(req, res) {
-    //});
+  failureFlash : true, // allow flash messages
+  successFlash : true,
+  successRedirect: "/TransRecon/transactions",
+  failureRedirect: "/TransRecon/login"
+  })
+);
+  //}), function(req, res) {
+  //});
 
 
 //LOGOUT

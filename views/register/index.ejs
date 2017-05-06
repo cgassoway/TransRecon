@@ -19,13 +19,13 @@
         <% registers.forEach(function(register) {  %>
         <% var date = register.date.toString();%>
           <tr>
-            <td width="16%"><%=date.substr(4, 3) + " " + date.substr(8, 2) + " " + date.substr(11, 4)%></td>
+            <td width="16%"><%=register.date%></td>
             <td width="26%" ><%=register.merchant%></td>
-            <td width="20%" ><%=register.accountName.replace('_', ' ')%></td>
-            <td width="10%" class="rt_aligned"><%=register.amount.toFixed(2)%></td>
-            <td width="12%" class="centered"> <%=register.reconciled.status%></td>
-            <td width="7%" > <a class="btn btn-warning btn-xs pull-right" href="/TransRecon/register/<%=register._id%>/edit">Edit</a></td>
-            <td width="8%"> <a class="btn btn-xs btn-danger pull-right" href="/TransRecon/register/<%=register._id%>/delete">Delete</a></td>
+            <td width="20%" ><%=register.account_name.replace('_', ' ')%></td>
+            <td width="10%" class="rt_aligned"><%=register.amount%></td>
+            <td width="12%" class="centered"> <%=register.status%></td>
+            <td width="7%" > <a class="btn btn-warning btn-xs pull-right" href="/TransRecon/register/<%=register.register_id%>/edit">Edit</a></td>
+            <td width="8%"> <a class="btn btn-xs btn-danger pull-right" href="/TransRecon/register/<%=register.register_id%>/delete">Delete</a></td>
             <% if (register.memo) { %>
                 <td width="85%" style="text-align:right"><%=register.memo%></td>
             <%}%>

@@ -15,6 +15,7 @@ var express     = require("express"),
 //
 //INDEX route
 router.get("/",  middleware.isLoggedIn, function(req, res) {
+  console.log('Got into register index route')
   var text = 'SELECT * FROM registers ORDER BY date DESC';
   tools.runQuery(text, [], (err, allRegisters) => {
     res.render("register", {registers: allRegisters});
@@ -30,38 +31,15 @@ router.get("/unrecon",  middleware.isLoggedIn, function(req, res) {
 });
 
 //NEW ROUTE
-/*
-router.get("/new", middleware.isLoggedIn, function(req, res) {
-  Transactions.find().distinct('accountName', function(err, accts){
-    if (err) {
-      console.log("Transactions.find().distinct  - " + err );
-      throw err;
-    } else {
-    Transactions.find().distinct('institution', function(err, finInst){
-      if (err) {
-        console.log("Register.find().distinct  - " + err);
-        throw err;
-      } else {
-        res.render("register/new", {accts:accts, finInst:finInst });
-        }
-      });
-    };    
-  });
-});
-*/
-
 router.get("/new", middleware.isLoggedIn, function(req, res) {
   var text = 'SELECT DISTINCT account_name FROM transactions ORDER BY  account_name';
   tools.runQuery(text, [], (err, accts) => {
-    var textI = 'SELECT DISTINCT institution FROM transactions ORDER BY institution';
-    tools.runQuery(text, [], (err, institutions) => {
-      //Transactions.find().distinct('accountName', function(error, accts){
-      res.render("register/new", {accts:accts, institutions:institutions });
-    })
-  });
+      res.render("register/new", {accts:accts});
+  })
 });
 
 //NEW  recurring one-time register item ROUTE
+/*
 router.get("/new/recur", middleware.isLoggedIn, function(req, res) {
   Transactions.find().distinct('accountName', function(err, accts){
     if (err) {
@@ -77,16 +55,16 @@ router.get("/new/recur", middleware.isLoggedIn, function(req, res) {
     });
   });
 });
-    
+*/  
   
 //CREATE ROUTE
 
 router.post("/", middleware.isLoggedIn, function(req, res){
-  var text = 'INSERT INTO registers (date, merchant, amount, account_name, memo, status, status_date, register_id)' +
-                              'VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
+  var text = 'INSERT INTO registers (date, merchant, amount, account_name, memo, status, status_date)' +
+                              'VALUES ($1, $2, $3, $4, $5, $6, $7)';
   var dateToday = new Date();
   var values = [req.body.date, req.body.merchant, req.body.amount, req.body.account_name, req.body.memo,
-                            '\'No\'', dateToday, 0];
+                            'No', dateToday];
   tools.runQuery(text, values, (err, results) => {
     if (err) {
         console.log(err);
@@ -115,14 +93,15 @@ router.post("/", middleware.isLoggedIn, function(req, res){
  
  //EDIT REGISTER ROUTE
  
-router.get("/:id/edit", middleware.isLoggedIn, function(req, res) {
-  var text = 'SELECT * FROM registers WHERE id = ' + req.params.id  + ';'
-  var args = [req.params.id]
+router.get("/:register_id/edit", middleware.isLoggedIn, function(req, res) {
+  var text = 'SELECT * FROM registers WHERE register_id = ' + req.params.register_id  + ';'
+  console.log(text)
   tools.runQuery(text, [], (err, foundRegister) => {
     if (err) {
         console.log(err);
         res.redirect("back");
     } else {
+      console.log(foundRegister)
       var text = 'SELECT DISTINCT account_name FROM transactions ORDER BY  account_name';
       tools.runQuery(text, [], (err, accts) => {
         res.render("register/edit", {register: foundRegister, accts:accts });
@@ -132,11 +111,11 @@ router.get("/:id/edit", middleware.isLoggedIn, function(req, res) {
  }); 
 
 //UPDATE REGISTER ROUTE
-router.put("/:registers_id", middleware.isLoggedIn, function(req, res){
-  console.log(req.params.registers_id)
-  var text = 'UPDATE registers SET (date, account_name, institution, merchant, amount, memo, status, status_date)'  +
+router.put("/:register_id", middleware.isLoggedIn, function(req, res){
+  console.log(req.params.register_id + '  amount - ' + req.body.amount)
+  var text = 'UPDATE registers SET (date, account_name, merchant, amount, memo)'  +
                 ' = (' +  '\'' + req.body.date + '\', \'' + req.body.account_name + '\', \'' + req.body.merchant + '\', ' + req.body.amount + 
-                ', \'' + req.body.memo + '\', \'' + req.body.status + '\', \'' + req.body.status_date + '\') WHERE id = ' + req.params.register_id
+                ', \'' + req.body.memo + '\') WHERE register_id = ' + req.params.register_id
   console.log(text)
   tools.runQuery(text, [], (err, foundRegister) => { 
     if (err) {
@@ -150,9 +129,9 @@ router.put("/:registers_id", middleware.isLoggedIn, function(req, res){
 
 
 // DELETE REGISTER CONFIRM  ROUTE
- router.get("/:id/delete", middleware.isLoggedIn, function(req, res) {
-  var text = 'SELECT * FROM registers WHERE id = $1';
-  var args = [req.params.id]
+ router.get("/:register_id/delete", middleware.isLoggedIn, function(req, res) {
+  var text = 'SELECT * FROM registers WHERE register_id = $1';
+  var args = [req.params.register_id]
   tools.runQuery(text, args, (err, foundRegister) => {
     if (err) {
       console.log(err);
@@ -165,8 +144,8 @@ router.put("/:registers_id", middleware.isLoggedIn, function(req, res){
  });
 
  //DELETE REGISTER ROUTE
-router.delete("/:id", middleware.isLoggedIn, function(req, res){
-  var text = 'DELETE FROM registers WHERE id = ' +req.params.id;
+router.delete("/:register_id", middleware.isLoggedIn, function(req, res){
+  var text = 'DELETE FROM registers WHERE register_id = ' +req.params.register_id;
   tools.runQuery(text, [], (err, foundRegister) => {
     if (err) {
       console.log(err);

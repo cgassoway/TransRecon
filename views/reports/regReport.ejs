@@ -21,29 +21,29 @@
         <% var spending = 0 %>
 
         <% registers.forEach(function(register) {  %>
-        <% var date = register.date.toString() %>
+        <% var date = register.date %>
         <% total = total + register.amount%>
         <tr>
-          <td width="10%"><%=date.substr(4, 3) + " " + date.substr(8, 2) + " " + date.substr(11, 4)%></td>
+          <td width="10%"><%=date%></td>
           <td width="25%" ><%=register.merchant%></td>
-          <td width="25%" ><%=register.accountName%></td>
+          <td width="25%" ><%=register.account_name%></td>
           <% if (register.amount >= 0) { %>
-            <td width="13%" class="rt_aligned"><%=register.amount.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>     
+            <td width="13%" class="rt_aligned"><%=Number(register.amount).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>     
             <td width="15%"></td></td> 
-            <% income = income + register.amount %>
+            <% income = income + Number(register.amount) %>
           <% } else { %>
             <td width="13%"></td></td>
-            <td width="15%" class="rt_aligned"><%=register.amount.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>     
-            <% spending = spending + register.amount %>
+            <td width="15%" class="rt_aligned"><%=Number(register.amount).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>     
+            <% spending = spending + Number(register.amount) %>
           <% }; %>
-          <td width="12%" ><%=register.reconciled.status%></td>
+          <td width="12%" ><%=register.status%></td>
           <% if (register.memo > " ") { %>
             <td><%=register.memo%></td>
           <%}%>
           <%})%>
           <td width="60%" style="text-align: right">Total value</td>
-          <td width="13%" class="rt_aligned"><%= income.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') %></td>
-          <td width="15%" class="rt_aligned"><%= spending.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') %></td>
+          <td width="13%" class="rt_aligned"><%= Number(income).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') %></td>
+          <td width="15%" class="rt_aligned"><%= Number(spending).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') %></td>
           <!--<td width="12%" class="rt_aligned"><%//= total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') %></td> -->
         </tr>
       </tbody>

@@ -71,14 +71,13 @@
             </thead>
             <tbody>
               <% register.forEach(function(register) {  %> 
-                <% var date = register.date.toString();%>
                   <tr >
-                    <td width="18%"><%=date.substr(4, 3) + " " + date.substr(8, 2) + " " + date.substr(11, 4)%></td>
+                    <td width="18%"><%=register.date%></td>
                     <td width="32%"><%=register.merchant%></td>
-                    <td width="26%"><%=register.accountName.replace(/_/g, ' ')%></td>
-                    <td width="14%" class="rt_aligned"><%=register.amount.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
+                    <td width="26%"><%=register.account_name.replace(/_/g, ' ')%></td>
+                    <td width="14%" class="rt_aligned"><%=Number(register.amount).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
                     <td width="10%" ><a class="btn btn-warning btn-xs pull-right" href="/TransRecon/register/<%=register._id%>/edit">Edit?</a></td>
-                    <td class="hidden"> <%= register._id%></td>
+                    <td class="hidden"> <%= register.register_id%></td>
                 </tr>
                 <% }); %>
             </tbody>
@@ -101,13 +100,12 @@
           </thead>
           <tbody>
             <% transaction.forEach(function(transaction) {  %>
-              <% var date = transaction.date.toString();%>
               <tr> 
-                <td width="18%"><%=date.substr(4, 3) + " " + date.substr(8, 2) + " " + date.substr(11, 4)%></td>
+                <td width="18%"><%=transaction.date%></td>
                 <td width="32%"><%=transaction.merchant%></td>
-                <td width="26%"><%=transaction.accountName.replace(/_/g, ' ')%></td>
-                <td width="14%" class="rt_aligned"><%=transaction.amount.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
-                <td width="10%" > <a class="btn btn-warning btn-xs pull-right" id="recon" href="/TransRecon/match/<%=transaction._id%>/edit"><%=transaction.reconciled.status%></a></td>
+                <td width="26%"><%=transaction.account_name.replace(/_/g, ' ')%></td>
+                <td width="14%" class="rt_aligned"><%=Number(transaction.amount).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')%></td>
+                <td width="10%" > <a class="btn btn-warning btn-xs pull-right" id="recon" href="/TransRecon/match/<%=transaction.transaction_id%>/edit"><%=transaction.status%></a></td>
               </tr>
             <% }); %>
           </tbody>

@@ -1,44 +1,39 @@
 <%  include ../partials/header  %>
 <div class="container">
-    <div class="row">
-        <!--<div class="panel-body col-md-10 col-xs-10 col-md-offset-1 col-xs-offset-1">-->
-        <div class="col-md-10 col-xs-10 col-md-offset-1 col-xs-offset-1">
-        <h2 style="text-align: center;">Delete Register Item</h2>
-     <!--<table class="table table-bordered table-condensed table-hover">-->
-            <!--<table id="myTable" class="table table-fixedheader table-bordered">-->
-            <table class="table ">
-                <thead>
-                    <tr>
-                        <th width="20%" id="tbldate">Date</th>
-                        <th width="25%" >merchant</th>
-                        <th width="25%" >Account</th>
-                        <th width="15%" class="rt_aligned">Amount</th>
-                        <th width="15%" >Are you sure?</th>
-                    </tr>
-                </thead>
-                <!--<tbody  style="height: 100px">-->
-                <tbody style="height: 50px">
-                    <% var date = register.date.toString();%>
-                        <tr height="15px">
-                            <td width="20%"><%=date.substr(4, 3) + " " + date.substr(8, 2) + " " + date.substr(11, 4)%></td>
-                            <td width="25%" ><%=register.merchant%></td>
-                            <td width="25%" ><%=register.accountName%></td>
-                            <td width="15%" class="rt_aligned"><%=register.amount.toFixed(2)%></td>
-                            <td width="15%">
-                                <form  method="POST" action="/TransRecon/register/<%=register._id%>?_method=DELETE">
-                                    <button type="submit" class="btn btn-xs btn-danger">Yes, Delete This Item</button>
-                                </form>
-                            </td>
-                            <% if (register.memo) { %>
-                                <td><%=register.memo%></td>
-                            <%}%>
-                            
-                        </tr>
-                 </tbody>
-            </table>
-            <a class="btn btn-lg btn-primary pull-right" href="/TransRecon/register">No, Go Back</a>      
-        </div>
-     </div>
+  <div class="row">
+    <div class="col-md-10 col-xs-10 col-md-offset-1 col-xs-offset-1">
+    <h2 style="text-align: center;">Delete Register Item</h2>
+      <table class="table ">
+        <thead>
+          <tr>
+            <th width="20%" id="tbldate">Date</th>
+            <th width="25%" >merchant</th>
+            <th width="25%" >Account</th>
+            <th width="15%" class="rt_aligned">Amount</th>
+            <th width="15%" >Are you sure?</th>
+          </tr>
+        </thead>
+        <tbody style="height: 50px">
+          <tr height="15px">
+            <td width="20%"><%=register[0].date%></td>
+            <td width="25%" ><%=register[0].merchant%></td>
+            <td width="25%" ><%=register[0].account_name%></td>
+            <td width="15%" class="rt_aligned"><%=register[0].amount%></td>
+            <td width="15%">
+              <form  method="POST" action="/TransRecon/register/<%=register[0].register_id%>?_method=DELETE">
+                  <button type="submit" class="btn btn-xs btn-danger">Yes, Delete This Item</button>
+              </form>
+            </td>
+            <% if (register[0].memo) { %>
+              <td><%=register[0].memo%></td>
+            <%}%>
+            
+          </tr>
+        </tbody>
+      </table>
+      <a class="btn btn-lg btn-primary pull-right" href="/TransRecon/register">No, Go Back</a>      
+    </div>
+  </div>
 </div>
 
 

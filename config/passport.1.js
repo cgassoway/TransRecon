@@ -62,68 +62,53 @@ module.exports = function(passport) {
 
     
 
-	// =========================================================================
-	// LOCAL SIGNUP ============================================================
-	// =========================================================================
-	passport.use('local-signup', new LocalStrategy({
-			// by default, local strategy uses username and password, we will override with username
-			username : 'username',
-			firstname : 'firstname',
-			middleinitial : 'middleinitial',
-			lastname : 'lastname',
-			password : 'password',
-			passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
-	},
-	function(req, username, password, done) {        
-	//  Whether we're signing up or connecting an account, we'll need
-	//  to know if the username address is in use.
-	console.log('In local signup')
-	User.findOne({ where: { username: username }})
-		.then(function(existingUser) {
-			console.log('starting userid check')				
-			// check to see if there's already a user with that email
-				if (existingUser) 
-					return done(null, false, req.flash('loginMessage', 'That email is already taken.'));
-
-				console.log('New user')
-		//  If we're logged in, we're connecting a new local account.
-				if(req.user) {
-					var user          = req.user;
-							user.username = username;
-							user.password = User.generateHash(password);
-							user.save().catch(function (err) {
-								throw err;
-							}).then (function() {
-								done(null, user);
-							});
-				} 
-				//  We're not logged in, so we're creating a brand new user.
+    // =========================================================================
+    // LOCAL SIGNUP ============================================================
+    // =========================================================================
+    passport.use('local-signup', new LocalStrategy({
+        // by default, local strategy uses username and password, we will override with username
+        username : 'username',
+				firstname : 'firstname',
+				middleinitial : 'middleinitial',
+				lastname : 'lastname',
+        password : 'password',
+        passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
+    },
+    function(req, username, password, done) {        
+		//  Whether we're signing up or connecting an account, we'll need
+		//  to know if the username address is in use.
+		console.log('In local signup')
+		User.findOne({ where: { username: username }})
+			.then(function(existingUser) {
+				console.log('starting userid check')				
+				
+				// check to see if there's already a user with that username
+				if (existingUser) {
+					console.log('found user')
+					return done(null, false, req.flash('loginMessage', 'That username is already taken.'));
+				}
 				else {
 					// create the user
-					console.log('Start create user')
-					var newUser = User.build ({username: username, password: User.generateHash(password)});	
-					console.log('create user')
-					newUser.firstname = firstname
-					newUser.middleinitial = middleinitial
-					newUser.lastname = lastname 
-					console.log('First name is ' + str(typeof newUser))
+					console.log('starting to create user')
+					var newUser = User.build ({username: username, firstname: firstname, middleinitial: middleinitial,
+						 lastname: lastname, password: User.generateHash(password)});	
 					newUser.save().then(function() {done (null, newUser);}).catch(function(err) { done(null, false, req.flash('loginMessage', err));});
-					console.log('complete user' + err)
-			}
+					console.log('complete create user')
+				}
+			})
+			.catch(function (e) {
+				done(null, false, req.flash('loginMessage',e.name + " " + e.message));				
+			})
+    }));
 
-	})
-	.catch(function (e) {
-		done(null, false, req.flash('loginMessage',e.name + " " + e.message));				
-	})
-	}));
 
-	// route middleware to ensure user is logged in
-	function isLoggedIn(req, res, next) {
-		console.log('In isLoggedIn')
-		if (req.isAuthenticated())
-			return next();
-		req.flash("error", "Please Login first if you wish to do that...");
-		res.redirect("/TransRecon/login");
-	}
+// route middleware to ensure user is logged in
+function isLoggedIn(req, res, next) {
+	console.log('In isLoggedIn')
+	if (req.isAuthenticated())
+		return next();
+	req.flash("error", "Please Login first if you wish to do that...");
+	res.redirect("/TransRecon/login");
+}
 
 };

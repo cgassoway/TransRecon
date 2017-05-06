@@ -1,52 +1,48 @@
 <%  include ../partials/header  %>
-<!--
-<div class="container">
-    <div class="row>">
-        <h1 style="text-align: center;">Edit Register Item</h1>
-        
-        <div style="width:30%; margin: 40px auto;">-->
+
 <div class="container>
-    <div class="row">
-        <!--<div class="col-md-3 col-xs-3></div>-->
-        <div class="col-md-4 col-xs-4 col-md-offset-4 col-xs-offset-4">
-            <h1 style="text-align: center;">Edit Register Item</h1>
-            <form action="/TransRecon/register/<%=register._id%>?_method=PUT" method="POST">
-                <div class="form-group">
-                    <% var date = register.date.toString();%>
-                    <label>Transaction Date<input class="form-control" type="text" style="width:30%" name="register[date]" value="<%=date.substr(4, 3) + " " + date.substr(8, 2) + " " + date.substr(11, 4)%>"></label>
-                </div>
-                <div class="form-group">
-                    <label>Merchant<input class="form-control" type = "text" name="register[merchant]"  value="<%=register.merchant%>"></label>
-                </div>
-                <div class="form-group">
-                    <label>Amount<input class="form-control" type="number" style="width:30%" step="any" name="register[amount]"  value="<%=register.amount.toFixed(2)%>"></label>
-                </div>
-                <div class="form-group">
-                    <label>Account Name<select class="form-control" name="register[accountName]" required>
-                        <% accts.forEach(function(acct) {
-                            if (register.accountName === acct) {
-                                %>
-                                <option value=<%=acct%> selected="selected"><%=acct%></option>
-                                <%
-                                 } else { %>
-                                    <option value=<%=acct%>><%=acct%></option>
-                                    <% } %>
-                        <% });
-                        
-                        %>
-                    </select></label>
-                </div>
-               
-                <div class="form-group">
-                    <label>Memo<input class="form-control" type="text" name="register[memo]"  value="<%=register.memo%>"></label>
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-lg btn-primary">Update</button>
-                    <button class="pull-right btn btn-lg btn-primary" action="/TransRecon/register/">Go Back</button>
-                </div>
-            </form>
+  <div class="row">
+    <!--<div class="col-md-3 col-xs-3></div>-->
+    <div class="col-md-4 col-xs-4 col-md-offset-4 col-xs-offset-4">
+      
+      <h1 style="text-align: center;">Edit Register Item</h1>
+      <form action="/TransRecon/register/<%=register[0].register_id%>?_method=PUT" method="POST">
+        <div class="form-group">
+          <label>Transaction Date<input class="form-control" type="text" style="width:30%" name="date" value="<%=register[0].date%>"></label>
         </div>
+        <div class="form-group">
+          <label>Merchant<input class="form-control" type = "text" name="merchant"  value="<%=register[0].merchant%>"></label>
+        </div>
+        <div class="form-group">
+          <%= console.log("amount - " + register[0].amount) %>
+          <label>Amount<input class="form-control" type="number" style="width:30%" step="any" name="amount"  value="<%=register[0].amount%>"></label>
+        </div>
+        <div class="form-group">
+          <label>Account Name<select class="form-control" name="account_name" required>
+            <% accts.forEach(function(acct) {
+              if (register[0].account_name === acct.account_name) {
+                %>
+                <option value=<%=acct.account_name%> selected="selected"><%=acct.account_name%></option>
+                <%
+                  } else { %>
+                    <option value=<%=acct.account_name%>><%=acct.account_name%></option>
+                    <% } %>
+            <% });
+            
+            %>
+          </select></label>
+        </div>
+        
+        <div class="form-group">
+          <label>Memo<input class="form-control" type="text" name="memo"  value="<%=register[0].memo%>"></label>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-lg btn-primary">Update</button>
+          <button class="pull-right btn btn-lg btn-primary" action="/TransRecon/register/">Go Back</button>
+        </div>
+      </form>
     </div>
+  </div>
 </div>
 
 
