@@ -42,7 +42,7 @@ require('./config/passport')(passport); // pass passport for configuration
 
 app.use(bodyParser());
 app.set("view engine", "ejs");
-app.use(express.static(__dirname + "/public"));
+app.use('TransRecon', express.static(__dirname + "/public"));
 app.set('views', __dirname + "/views");
 app.use(methodOverride("_method"));
 ;
