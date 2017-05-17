@@ -5,12 +5,12 @@
   "user": "cgassoway",
   "password": "BuxjwiuB~",
   "port": 5432,
-  "host": "localhost",
+  "host": "192.168.1.52",
   "database": "fininfo",
   "max": 20, 
   "min": 4, 
   "idleTimeoutMillis": 1000
   },
 "port": "8082",
-"ipAddress": "192.168.1.52"
+"ipAddress": "192.168.1.50"
 }
