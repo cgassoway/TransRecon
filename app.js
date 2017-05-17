@@ -40,9 +40,10 @@ app.use(flash())
 console.log('Got to passport require')    
 require('./config/passport')(passport); // pass passport for configuration
 
-app.use(bodyParser());
+//app.use(bodyParser());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
-app.use('TransRecon', express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/public"));
 app.set('views', __dirname + "/views");
 app.use(methodOverride("_method"));
 ;
